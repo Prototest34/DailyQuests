@@ -1,0 +1,5 @@
+#File use for language
+language-file: lang-en.yml
+
+# Set this value to false to disable debug mode and do not send debug messages to the console.
+debug: false
