@@ -1,12 +1,8 @@
 package fr.norrion.daily_quests.utils;
 
 import fr.norrion.daily_quests.Main;
-import org.bukkit.configuration.file.FileConfiguration;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Startup {
     public void checkIfFilesExist() {
@@ -15,6 +11,12 @@ public class Startup {
         }
         if (!new File(Main.getInstance().getDataFolder(), "config.yml").exists()) {
             Main.getInstance().saveResource("config.yml", false);
+        }
+        if (!new File(Main.getInstance().getDataFolder(), "quest-model-data.yml").exists()) {
+            Main.getInstance().saveResource("quest-model-data.yml", false);
+        }
+        if (!new File(Main.getInstance().getDataFolder(), "quest-data.yml").exists()) {
+            Main.getInstance().saveResource("quest-data.yml", false);
         }
     }
 }

@@ -3,6 +3,7 @@ version: 1.0
 main: fr.norrion.daily_quests.Main
 api-version: 1.13
 authors: [Prototest34]
+softdepend: [Vault]
 
 commands:
   quest:

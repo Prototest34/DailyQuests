@@ -1,66 +1,125 @@
 package fr.norrion.daily_quests.inventory;
 
-import fr.norrion.daily_quests.exeption.PlayerQuestDataNotFound;
+import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.Config;
 import fr.norrion.daily_quests.fileData.Message;
 import fr.norrion.daily_quests.fileData.QuestData;
-import fr.norrion.daily_quests.model.Quest;
-import fr.norrion.daily_quests.utils.Logger;
+import fr.norrion.daily_quests.model.quest.Quest;
+import fr.norrion.daily_quests.utils.NBTUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class QuestInventory {
     private final String playerName;
     private final List<Quest> questList;
 
+    private static final HashMap<Inventory, QuestInventory> inventoryList = new HashMap<>();
+
+    public static void launchRefreshInv() {
+        int time = Config.QUEST$REFRESH_TIME.getInt();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Inventory inv : inventoryList.keySet()) {
+                    if (inv.getViewers().isEmpty()) {
+                        QuestInventory.removeInv(inv);
+                    } else {
+                        for (ItemStack item : inv.getStorageContents()) {
+                            if (item != null && NBTUtils.isDailyQuestItem(item) && "QUEST".equals(NBTUtils.getCompound(item).getString("QUEST_FUNCTION"))) {
+                                Quest quest = QuestData.getQuestFromID(NBTUtils.getCompound(item).getString("QUEST_PLAYER"), NBTUtils.getCompound(item).getInteger("QUEST_ID"));
+                                inv.setItem(inv.first(item), InventoryItems.getQuest(quest));
+                            }
+                        }
+                    }
+                }
+            }
+        }.runTaskTimerAsynchronously(Main.getInstance(), time, time);
+    }
+
+    @Nullable
+    public static QuestInventory getQuestInventory(Inventory inv) {
+        return inventoryList.getOrDefault(inv, null);
+    }
+
+    public static void removeInv(Inventory inventory) {
+        inventoryList.remove(inventory);
+    }
+
     public QuestInventory(String playerName) {
         this.playerName = playerName;
         this.questList = QuestData.getQuest(playerName);
     }
 
-    public boolean openInventory(Player player) {
-        if (this.questList == null){
-            Logger.logDebugMessage("No quest found for player "+ playerName);
-            return false;
-        }
-        player.openInventory(createInventory(player));
+    public boolean openInventory(Player player, boolean admin) {
+        List<String> pattern = Config.QUEST$PATTERN.getList();
+        Inventory inv = Bukkit.createInventory(player,
+                pattern.size() * 9,
+                admin ? Message.QUEST$INVENTORY_NAME_OTHER.getString().replace("%player%", playerName) :
+                        Message.QUEST$INVENTORY_NAME.getString()
+        );
+        createInventory(inv, 0);
+        inventoryList.put(inv, this);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.openInventory(inv);
+            }
+        }.runTask(Main.getInstance());
         return true;
     }
 
-    private Inventory createInventory(Player player) {
+    public void createInventory(Inventory inv, int page) {
         List<String> pattern = Config.QUEST$PATTERN.getList();
-        Inventory inv = Bukkit.createInventory(player,
-                pattern.size()*9,
-                playerName.equalsIgnoreCase(player.getName())?Message.QUEST$INVENTORY_NAME.get():
-                        Message.QUEST$INVENTORY_NAME_OTHER.get().replace("%player%", playerName)
-        );
         int index = 0;
-        for (String line: pattern) {
+        int nbQuestSlot = 0;
+        for (String line : pattern) {
+            for (String slot : line.split(",")) {
+                if ("quest".equals(slot)) {
+                    nbQuestSlot++;
+                }
+            }
+        }
+        int indexQuests = page * nbQuestSlot;
+        boolean havePreviousPage = page > 0;
+        boolean haveNextPage = this.questList.size() > (page + 1) * nbQuestSlot;
+        for (String line : pattern) {
             List<String> slots = Arrays.asList(line.split(","));
-            for (int i = 0; i < 9; i++){
+            for (int i = 0; i < 9; i++) {
                 ItemStack itemStack;
                 if (i >= slots.size() || "empty".equalsIgnoreCase(slots.get(i))) {
                     itemStack = InventoryItems.getEmpty();
-                }
-                else if ("previous".equalsIgnoreCase(slots.get(i))) {
-                    itemStack = InventoryItems.getPrevious();
-                }
-                else if ("next".equalsIgnoreCase(slots.get(i))) {
-                    itemStack = InventoryItems.getNext();
-                }
-                else {
+                } else if ("quest".equalsIgnoreCase(slots.get(i))) {
+                    if (indexQuests < this.questList.size())
+                        itemStack = InventoryItems.getQuest(this.questList.get(indexQuests));
+                    else
+                        itemStack = InventoryItems.get("AIR");
+                    indexQuests++;
+                } else if ("previous".equalsIgnoreCase(slots.get(i))) {
+                    if (havePreviousPage) {
+                        itemStack = InventoryItems.getPrevious(page);
+                    } else {
+                        itemStack = InventoryItems.getEmpty();
+                    }
+                } else if ("next".equalsIgnoreCase(slots.get(i))) {
+                    if (haveNextPage) {
+                        itemStack = InventoryItems.getNext(page);
+                    } else {
+                        itemStack = InventoryItems.getEmpty();
+                    }
+                } else {
                     itemStack = InventoryItems.get(slots.get(i));
                 }
-                inv.setItem(i+index, itemStack);
+                inv.setItem(i + index, itemStack);
             }
             index += 9;
-
         }
-        return inv;
     }
 }

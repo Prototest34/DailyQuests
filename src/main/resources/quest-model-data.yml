@@ -1,0 +1,43 @@
+questModel:
+  BREAK_GRASS_BLOCK:
+    name: "&a&lBreak 40 grass block"
+    material: "GRASS_BLOCK"
+    amount: 40
+    custom-model: 0
+    type: BREAK_BLOCK
+    block-to-break: "GRASS_BLOCK"
+    amount-to-break: 40
+    rarity: NORMAL
+    description:
+      - "&3Reward: &a64 diamond"
+      - "&3Reward: &a64 ironbar"
+    reward_type: COMMAND
+    commands:
+    - give %player% diamond 64
+    - give %player% ironbar 64
+    - bc &c%player% has finish quest %quest_name%
+  PLACE_OAK_PLANKS_BLOCK:
+    name: "&a&lPlace 128 grass block"
+    material: "OAK_PLANKS"
+    amount: 1
+    custom-model: 0
+    type: PLACE_BLOCK
+    block-to-place: "OAK_PLANKS"
+    amount-to-place: 128
+    rarity: NORMAL
+    reward_type: ITEMS
+    item: diamond
+  KILL_ZOMBIE:
+    name: "&a&lKill 10 zombies"
+    material: "OAK_PLANKS"
+    amount: 1
+    custom-model: 0
+    type: KILL
+    entity: "ZOMBIE"
+    amount-to-kill: 10
+    rarity: NORMAL
+    reward_type: MONEY,COMMAND
+    money: 100
+    commands:
+      - bc &a%player% has won &c100$
+      - dqmessage:%player%:&aYou won: &c100$

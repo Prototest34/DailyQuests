@@ -6,19 +6,26 @@ import org.bukkit.plugin.PluginManager;
 
 public enum MyPermission {
     ADMIN("admin", PermissionDefault.OP),
-    RELOAD("admin.reload", PermissionDefault.OP),
-    ADD_QUEST("admin.add", PermissionDefault.OP),
-    ADD_QUEST_OTHER("admin.add.other", PermissionDefault.OP),
-    QUEST_ACCESS("quest", PermissionDefault.TRUE);
+    ADMIN$RELOAD("admin.reload", PermissionDefault.OP),
+    ADMIN$ADD_QUEST("admin.addquest", PermissionDefault.OP),
+    ADMIN$ADD_QUEST_OTHER("admin.addquest.other", PermissionDefault.OP),
+    ADMIN$ADD_PROGRESS("admin.addprogress", PermissionDefault.OP),
+    ADMIN$ADD_ITEM_REWARD("admin.additemreward", PermissionDefault.OP),
+    ADMIN$SET_PROGRESS("admin.setprogress", PermissionDefault.OP),
+    ADMIN$REMOVE_QUEST("admin.removequest", PermissionDefault.OP),
+    ADMIN$QUEST_ACCESS_OTHER("admin.quest.other", PermissionDefault.OP),
+    QUEST_ACCESS("quest", PermissionDefault.TRUE),
+    ADMIN$QUEST_INFO("quest.info", PermissionDefault.OP);
 
     private final Permission permission;
+
     MyPermission(String permissionString, PermissionDefault permissionDefault) {
-        this.permission = new Permission("daily_quests."+permissionString);
+        this.permission = new Permission("daily_quests." + permissionString);
         permission.setDefault(permissionDefault);
     }
 
     public static void addPermission(PluginManager pluginManager) {
-        for (MyPermission p: MyPermission.values()) {
+        for (MyPermission p : MyPermission.values()) {
             pluginManager.addPermission(p.permission);
         }
     }
