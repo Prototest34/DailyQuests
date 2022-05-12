@@ -42,6 +42,7 @@ public class QuestModelData {
                 case BREAK_BLOCK -> questModel = QuestModelBreakBlock.create(memorySection, key);
                 case PLACE_BLOCK -> questModel = QuestModelPlaceBlock.create(memorySection, key);
                 case KILL -> questModel = QuestModelKill.create(memorySection, key);
+                case HIT -> questModel = QuestModelHit.create(memorySection, key);
             }
             if (questModel != null) {
                 questModels.add(questModel);

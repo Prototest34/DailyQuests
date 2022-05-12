@@ -125,7 +125,7 @@ public class Quest {
                 right.append(Config.QUEST$PROGRESS_BAR$GREEN.getString());
                 right.append(character.repeat(progress));
                 right.append(Config.QUEST$PROGRESS_BAR$RED.getString());
-                right.append(character.repeat(characterNumber / 2 - progress));
+                right.append(character.repeat(Math.max((characterNumber / 2 - progress), 0)));
                 left.append(character.repeat(characterNumber / 2));
             } else {
                 left.append(character.repeat(progress));
@@ -167,6 +167,7 @@ public class Quest {
     public void setProgression(int i) {
         this.progression = i;
         if (isComplete()) {
+            this.progression = this.progressionEnd;
             this.completeTime = LocalDateTime.now();
             for (QuestReward reward : this.getQuestModel().getRewards()) {
                 reward.execute(this);

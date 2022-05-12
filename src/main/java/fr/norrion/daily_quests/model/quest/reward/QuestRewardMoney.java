@@ -22,7 +22,7 @@ public class QuestRewardMoney extends QuestReward {
 
     @Override
     public String getRewardString() {
-        return null;
+        return "";
     }
 
     static public QuestRewardMoney createOne(MemorySection memorySection, String key) {

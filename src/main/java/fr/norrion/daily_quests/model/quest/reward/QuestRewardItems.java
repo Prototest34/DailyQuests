@@ -35,7 +35,7 @@ public class QuestRewardItems extends QuestReward {
 
     @Override
     public String getRewardString() {
-        return null;
+        return "";
     }
 
     static public QuestRewardItems createOne(MemorySection memorySection, String key) {

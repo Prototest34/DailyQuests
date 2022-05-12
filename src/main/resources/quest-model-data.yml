@@ -41,3 +41,61 @@ questModel:
     commands:
       - bc &a%player% has won &c100$
       - dqmessage:%player%:&aYou won: &c100$
+  HIT_ARROW:
+    name: "&a&lHit 10 time with arrow"
+    material: "ARROW"
+    amount: 10
+    custom-model: 0
+    type: HIT
+    damage-cause: ARROW
+    amount-to-hit: 10
+    rarity: NORMAL
+    reward_type: MONEY,COMMAND
+    money: 100
+    commands:
+      - bc &a%player% has won &c100$
+      - dqmessage:%player%:&aYou won: &c100$
+  HIT_ARROW_ZOMBIE:
+    name: "&a&lHit 5 zombie with arrow"
+    material: "ARROW"
+    amount: 5
+    custom-model: 0
+    type: HIT
+    damage-cause: ARROW
+    amount-to-hit: 5
+    entity: "ZOMBIE"
+    rarity: NORMAL
+    reward_type: MONEY,COMMAND
+    money: 100
+    commands:
+      - bc &a%player% has won &c100$
+      - dqmessage:%player%:&aYou won: &c100$
+  DEAL_ARROW:
+    name: "&a&lDeal 100 damage with arrow"
+    material: "ARROW"
+    amount: 1
+    custom-model: 0
+    type: HIT
+    damage-cause: ARROW
+    amount-damage: 100
+    rarity: NORMAL
+    reward_type: MONEY,COMMAND
+    money: 100
+    commands:
+      - bc &a%player% has won &c100$
+      - dqmessage:%player%:&aYou won: &c100$
+  DEAL_ARROW_ZOMBIE:
+    name: "&a&lDeal 50 damage to zombie with arrow"
+    material: "ARROW"
+    amount: 50
+    custom-model: 0
+    type: HIT
+    damage-cause: ARROW
+    amount-damage: 50
+    entity: "ZOMBIE"
+    rarity: NORMAL
+    reward_type: MONEY,COMMAND
+    money: 100
+    commands:
+      - bc &a%player% has won &c100$
+      - dqmessage:%player%:&aYou won: &c100$

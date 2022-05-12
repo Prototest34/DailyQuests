@@ -103,6 +103,7 @@ public class QuestData {
         QuestData.quests = new HashMap<>();
     }
 
+    //TODO change to UUID
     public static List<Quest> getUnfinishedQuest(String playerName) {
         return getQuest(playerName).stream().filter(quest -> !quest.isFailed() && !quest.isComplete()).toList();
     }

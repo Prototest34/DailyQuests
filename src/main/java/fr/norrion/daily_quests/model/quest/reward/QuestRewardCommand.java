@@ -46,7 +46,7 @@ public class QuestRewardCommand extends QuestReward {
 
     @Override
     public String getRewardString() {
-        return null;
+        return "";
     }
 
     static public QuestRewardCommand createOne(MemorySection memorySection, String key) {

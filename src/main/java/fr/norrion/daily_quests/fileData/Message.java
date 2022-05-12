@@ -124,6 +124,7 @@ public enum Message {
         } else {
             Logger.ErrorMessageToServerConsole(Message.SYSTEM$CANNOT_FIND_LANGUAGE_FILE.getString().replace("%file%", Message.fileName));
         }
+        Arrays.stream(Message.values()).forEach(message -> message.get());
     }
 
     private String getKey() {
