@@ -53,6 +53,7 @@ public enum Message {
     COMMAND$ADMIN_QUEST$USE("/questadmin quest %model_player%", false),
     COMMAND$ADMIN_ADDQUEST$HELP("&aAdd quest to a player", false),
     COMMAND$ADMIN_ADDQUEST$USE("/questadmin addquest %model_player% %model_quest_model%", false),
+    COMMAND$ADMIN_ADDQUEST$PLAYER_NOT_FOUND("&cCan not find player %player%", true),
     COMMAND$ADMIN_ADDQUEST$SUCCESS("&aQuest successfully added to &b%player%", true),
     COMMAND$ADMIN_ADDQUEST$MODEL_NOT_FOUND("&cCannot find the model %model%", true),
     COMMAND$ADMIN_ADDITEMREWARD$HELP("&aAdd a item reward to a model", false),

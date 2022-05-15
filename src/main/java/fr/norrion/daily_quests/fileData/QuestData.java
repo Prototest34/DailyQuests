@@ -62,10 +62,10 @@ public class QuestData {
     }
 
     public static PlayerData getPlayerData(UUID uuid) {
-        return playerDataList.stream()
+        Optional<PlayerData> optionalPlayerData = playerDataList.stream()
                 .filter(playerData -> uuid.equals(playerData.uuid()))
-                .findFirst()
-                .orElse(addPlayerData(Bukkit.getOfflinePlayer(uuid).getName(), uuid));
+                .findFirst();
+        return optionalPlayerData.orElseGet(() -> addPlayerData(Bukkit.getOfflinePlayer(uuid).getName(), uuid));
     }
 
     public static PlayerData addPlayerData(String name, UUID uuid) {

@@ -26,7 +26,7 @@ public class QuestKillEvent implements Listener {
                     QuestData.getUnfinishedQuest(player.getUniqueId()).stream()
                             .filter(quest -> QuestModelType.KILL.equals(quest.getQuestModel().getType()))
                             .filter(quest -> victimeType.equals(((QuestModelKill) quest.getQuestModel()).getEntity()))
-                            .forEach(quest -> quest.addProgression(1));
+                            .forEach(quest -> quest.addProgressionWithBossBar(1, player));
                 }
             }.runTaskAsynchronously(Main.getInstance());
         }

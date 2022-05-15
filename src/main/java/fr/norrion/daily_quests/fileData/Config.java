@@ -14,7 +14,7 @@ public enum Config {
     LANGUAGE_FILE("lang-en.yml"),
     PREFIX_PLUGIN("&7[&aDaily Quests&7] "),
     PURGECRON("0 0 * * * ?"),
-    CRON_NORMAL("* * * * * ?"),
+    CRON_NORMAL("0 0 0 * * ?"),
     PURGE_OLD_HOUR(24),
     QUEST$PATTERN(Arrays.asList(
             "empty,empty,empty,empty,empty,empty,empty,empty,empty",
@@ -53,6 +53,10 @@ public enum Config {
     QUEST$PROGRESS_BAR$RED("&c"),
     QUEST$REFRESH(true),
     QUEST$REFRESH_TIME(20),
+    QUEST$BOSS_BAR_ENABLE(true),
+    QUEST$BOSS_BAR_COLOR("BLUE"),
+    QUEST$BOSS_BAR_STYLE("SOLID"),
+    QUEST$BOSS_BAR_MESSAGE("%quest% &8[&b%progress-value%/%progress-end%&8]"),
     DEBUG(false)
     ;
 

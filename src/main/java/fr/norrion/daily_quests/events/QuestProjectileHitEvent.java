@@ -30,10 +30,10 @@ public class QuestProjectileHitEvent implements Listener {
                             .filter(quest -> ((QuestModelHit) quest.getQuestModel()).getDamageCause().isIntance(projectile))
                             .forEach(quest -> {
                                 if (((QuestModelHit) quest.getQuestModel()).isDealOrHit()) {
-                                    quest.addProgression(damage.intValue());
+                                    quest.addProgressionWithBossBar(damage.intValue(), player);
                                 }
                                 else {
-                                    quest.addProgression(1);
+                                    quest.addProgressionWithBossBar(1, player);
                                 }
                             });
                 }
