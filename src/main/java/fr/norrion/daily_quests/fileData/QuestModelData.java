@@ -7,14 +7,11 @@ import fr.norrion.daily_quests.model.quest.reward.QuestRewardItems;
 import fr.norrion.daily_quests.utils.Logger;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class QuestModelData {
     private static List<QuestModel> questModels;
@@ -83,5 +80,16 @@ public class QuestModelData {
             e.printStackTrace();
             Logger.ErrorMessageToServerConsole(Message.SYSTEM$CANNOT_SAVE_MODEL.getString());
         }
+    }
+
+    @Nullable
+    public static QuestModel getRandomQuestModel() {
+        if (QuestModelData.questModels.isEmpty()){
+            return null;
+        }
+        Random random = new Random();
+
+        int value = random.nextInt(QuestModelData.questModels.size()-1);
+        return QuestModelData.questModels.get(value);
     }
 }

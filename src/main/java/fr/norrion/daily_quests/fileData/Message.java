@@ -29,6 +29,7 @@ public enum Message {
     SYSTEM$PURGECRON_SUCCESS("&aDeleting %number% outdated quest", false),
     SYSTEM$PURGECRON_INVALID("&cInvalid purge cron!", false),
     SYSTEM$CREATE_CRON_ENABLE("CreateQuest cron is enable", false),
+    SYSTEM$CREATE_CRON_SUCCESS("Give %number% quest for %player_number% player", false),
     SYSTEM$CREATE_CRON_INVALID("&cInvalid create cron!", false),
     SYSTEM$VAULT_NOT_FOUND("&cCouldn't give the cash reward! Vault is not found!", false),
 

@@ -16,17 +16,20 @@ public class QuestCreateCron implements Job {
 
     public static void createCron() {
         try {
-            JobDetail purgeQuest = JobBuilder.newJob(PurgeQuest.class)
+            if (myScheduler != null && myScheduler.isStarted()){
+                myScheduler.shutdown();
+            }
+            JobDetail createCron = JobBuilder.newJob(QuestCreateCron.class)
                     .withIdentity("jobCreateQuest", "DailyQuest").build();
             CronTrigger myCron = newTrigger()
                     .withIdentity("triggerCreateQuest", "DailyQuest")
                     .withSchedule(cronSchedule(Config.CRON_NORMAL.getString()))
-                    .forJob(purgeQuest)
+                    .forJob(createCron)
                     .build();
 
             myScheduler = new StdSchedulerFactory().getScheduler();
             myScheduler.start();
-            myScheduler.scheduleJob(purgeQuest, myCron);
+            myScheduler.scheduleJob(createCron, myCron);
             Logger.InfoMessageToServerConsole(Message.SYSTEM$CREATE_CRON_ENABLE.getString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,7 +50,7 @@ public class QuestCreateCron implements Job {
         new BukkitRunnable() {
             @Override
             public void run() {
-                QuestData.purge();
+                QuestData.giveNormalQuest();
             }
         }.runTaskAsynchronously(Main.getInstance());
     }

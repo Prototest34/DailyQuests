@@ -61,8 +61,6 @@ public class Main extends JavaPlugin {
             this.getServer().getPluginManager().registerEvents(new QuestInventoryCloseEvent(), this);
             QuestInventory.launchRefreshInv();
         }
-        PurgeQuest.createPurge();
-        QuestCreateCron.createCron();
     }
 
     public static void reload() {
@@ -71,6 +69,8 @@ public class Main extends JavaPlugin {
         Message.reload();
         QuestModelData.reload();
         QuestData.reload();
+        PurgeQuest.createPurge();
+        QuestCreateCron.createCron();
     }
 
     public YamlConfiguration loadConfiguration(final File file, final String fileName) {

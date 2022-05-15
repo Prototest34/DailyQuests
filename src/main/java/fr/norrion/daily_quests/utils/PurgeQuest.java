@@ -16,6 +16,9 @@ public class PurgeQuest implements Job {
 
     public static void createPurge() {
         try {
+            if (myScheduler != null && myScheduler.isStarted()){
+                myScheduler.shutdown();
+            }
             JobDetail purgeQuest = JobBuilder.newJob(PurgeQuest.class)
                     .withIdentity("jobPurgeQuest", "DailyQuest").build();
             CronTrigger myCron = newTrigger()
@@ -48,7 +51,7 @@ public class PurgeQuest implements Job {
         new BukkitRunnable() {
             @Override
             public void run() {
-                QuestData.giveNormalQuest();
+                QuestData.purge();
             }
         }.runTaskAsynchronously(Main.getInstance());
     }

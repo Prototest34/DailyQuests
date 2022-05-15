@@ -14,7 +14,7 @@ public enum Config {
     LANGUAGE_FILE("lang-en.yml"),
     PREFIX_PLUGIN("&7[&aDaily Quests&7] "),
     PURGECRON("0 0 * * * ?"),
-    CRON_NORMAL("0 0 * * * ?"),
+    CRON_NORMAL("* * * * * ?"),
     PURGE_OLD_HOUR(24),
     QUEST$PATTERN(Arrays.asList(
             "empty,empty,empty,empty,empty,empty,empty,empty,empty",
@@ -75,6 +75,8 @@ public enum Config {
         Config.config = Config.plugin.loadConfiguration(Config.configFile, Config.fileName);
         Logger.InfoMessageToServerConsole(Message.SYSTEM$FILE_LOADED_SUCCESS.toString().replace("%file%", Config.fileName));
         Config.QUEST$PATTERN.get();
+
+        Arrays.stream(Config.values()).forEach(Config::get);
     }
 
     private String getKey() {

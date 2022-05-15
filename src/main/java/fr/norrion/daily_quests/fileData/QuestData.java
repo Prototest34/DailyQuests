@@ -3,6 +3,7 @@ package fr.norrion.daily_quests.fileData;
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.model.quest.PlayerData;
 import fr.norrion.daily_quests.model.quest.Quest;
+import fr.norrion.daily_quests.model.quest.model.QuestModel;
 import fr.norrion.daily_quests.utils.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
@@ -11,6 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class QuestData {
@@ -143,6 +145,17 @@ public class QuestData {
         return 0;
     }
 
+    public static int getNextIdQuest(PlayerData playerData) {
+        List<Quest> questList = playerData.listQuest();
+        for (int i = 0; i < 5000000; i++) {
+            int finalI = i;
+            if (questList.stream().filter(quest -> quest.getId() == finalI).findFirst().isEmpty()) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     public static void purge() {
         Logger.InfoMessageToServerConsole(Message.SYSTEM$PURGECRON_IN_PROGRESS.getString());
         int questDelete = 0;
@@ -166,6 +179,19 @@ public class QuestData {
     }
 
     public static void giveNormalQuest() {
+        int i = 0;
+        for (PlayerData playerData : playerDataList) {
+            QuestModel questModel = QuestModelData.getRandomQuestModel();
+            if (questModel == null) {
+                return;
+            }
+            Quest quest = new Quest(getNextIdQuest(playerData), playerData.uuid(), LocalDateTime.now(), LocalDateTime.now().plusDays(1), null, questModel);
+            playerData.listQuest().add(quest);
+            i++;
+            playerData.save(QuestData.config);
+        }
+
+        Logger.InfoMessageToServerConsole(Message.SYSTEM$CREATE_CRON_SUCCESS.getString().replace("%number%", Integer.toString(i)).replace("%player_number%", String.valueOf(playerDataList.size())));
     }
 
     public static String getPlayerName(UUID uuid) {
