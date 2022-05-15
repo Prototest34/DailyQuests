@@ -22,7 +22,7 @@ public enum Message {
     SYSTEM$QUEST_ERROR_LOAD("Unable to load next quest: %path%", false),
     SYSTEM$MATERIAL_DOES_EXIST("The material %item% does not exist!", false),
     SYSTEM$NO_PERMISSION("&cYou don't have permission to execute this command", true),
-    SYSTEM$ONLY_PLAYER_COMMAND("Only executable by players", false),
+    SYSTEM$ONLY_PLAYER_COMMAND("&cOnly executable by players", true),
     SYSTEM$SOMETHING_IS_WRONG("Something is wrong. Code: %code%", false),
     SYSTEM$PURGECRON_ENABLE("PurgeQuest cron is enable", false),
     SYSTEM$PURGECRON_IN_PROGRESS("Purging ongoing quests", false),

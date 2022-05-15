@@ -64,14 +64,14 @@ public class Quest {
     }
 
     public void save(MemorySection memorySection) {
-        memorySection.set(uuid + "." + id + ".start", start.format(formatter));
-        memorySection.set(uuid + "." + id + ".end", end.format(formatter));
+        memorySection.set(uuid + ".quest." + id + ".start", start.format(formatter));
+        memorySection.set(uuid + ".quest." + id + ".end", end.format(formatter));
         if (this.isComplete()) {
-            memorySection.set(uuid + "." + id + ".complete", completeTime.format(formatter));
+            memorySection.set(uuid + ".quest." + id + ".complete", completeTime.format(formatter));
         }
-        memorySection.set(uuid + "." + id + ".model", questModel.getKey());
-        memorySection.set(uuid + "." + id + ".progression", this.progression);
-        memorySection.set(uuid + "." + id + ".progression-end", this.progressionEnd);
+        memorySection.set(uuid + ".quest." + id + ".model", questModel.getKey());
+        memorySection.set(uuid + ".quest." + id + ".progression", this.progression);
+        memorySection.set(uuid + ".quest." + id + ".progression-end", this.progressionEnd);
     }
 
     public String getStart() {

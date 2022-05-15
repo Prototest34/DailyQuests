@@ -33,11 +33,15 @@ public class QuestData {
         for (String UUIDString : QuestData.config.getKeys(false)) {
             UUID uuid = UUID.fromString(UUIDString);
             List<Quest> questList = new ArrayList<>();
-            for (String key : ((MemorySection) QuestData.config.get(UUIDString)).getKeys(false)) {
-                try {
-                    questList.add(new Quest(Integer.parseInt(key), (MemorySection) QuestData.config.get(UUIDString + "." + key), uuid));
-                } catch (Exception e) {
-                    Logger.ErrorMessageToServerConsole(Message.SYSTEM$QUEST_ERROR_LOAD.getString().replace("%path%", UUIDString + "." + key));
+            MemorySection memorySection = (MemorySection) QuestData.config.get(UUIDString+".quest");
+            if (memorySection != null){
+                for (String key : memorySection.getKeys(false)) {
+                    try {
+                        questList.add(new Quest(Integer.parseInt(key), (MemorySection) memorySection.getConfigurationSection(key), uuid));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Logger.ErrorMessageToServerConsole(Message.SYSTEM$QUEST_ERROR_LOAD.getString().replace("%path%", UUIDString + "." + key));
+                    }
                 }
             }
             String playerName = Bukkit.getOfflinePlayer(uuid).getName();
