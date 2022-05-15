@@ -104,3 +104,16 @@ questModel:
     commands:
       - bc &a%player% has won &c100$
       - dqmessage:%player%:&aYou won: &c100$
+  BREED_SHEEP:
+    name: "&a&lBreed 10 sheep"
+    material: "SHEEP_SPAWN_EGG"
+    amount: 10
+    custom-model: 0
+    type: BREED
+    entity: "SHEEP"
+    amount-to-breed: 10
+    rarity: NORMAL
+    description:
+      - "&3Creating power"
+    reward-text:
+      - "&3No reward"
