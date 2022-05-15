@@ -13,10 +13,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 
 public class Quest {
     private final int id;
-    private final String playerName;
+    private final UUID uuid;
     private final LocalDateTime start;
     private final LocalDateTime end;
     private LocalDateTime completeTime;
@@ -26,9 +27,9 @@ public class Quest {
 
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-    public Quest(int id, String playerName, LocalDateTime start, LocalDateTime end, LocalDateTime complete, QuestModel questModel) {
+    public Quest(int id, UUID uuid, LocalDateTime start, LocalDateTime end, LocalDateTime complete, QuestModel questModel) {
         this.id = id;
-        this.playerName = playerName;
+        this.uuid = uuid;
         this.start = start;
         this.end = end;
         this.completeTime = complete;
@@ -37,9 +38,9 @@ public class Quest {
         this.progressionEnd = questModel.getProgressionEnd();
     }
 
-    public Quest(int id, MemorySection memorySection, String playerName) {
+    public Quest(int id, MemorySection memorySection, UUID uuid) {
         this.id = id;
-        this.playerName = playerName;
+        this.uuid = uuid;
         this.start = LocalDateTime.parse(memorySection.getString("start"), formatter);
         this.end = LocalDateTime.parse(memorySection.getString("end"), formatter);
         String completeTime = memorySection.getString("complete");
@@ -54,14 +55,14 @@ public class Quest {
     }
 
     public void save(MemorySection memorySection) {
-        memorySection.set(playerName + "." + id + ".start", start.format(formatter));
-        memorySection.set(playerName + "." + id + ".end", end.format(formatter));
+        memorySection.set(uuid + "." + id + ".start", start.format(formatter));
+        memorySection.set(uuid + "." + id + ".end", end.format(formatter));
         if (this.isComplete()) {
-            memorySection.set(playerName + "." + id + ".complete", completeTime.format(formatter));
+            memorySection.set(uuid + "." + id + ".complete", completeTime.format(formatter));
         }
-        memorySection.set(playerName + "." + id + ".model", questModel.getKey());
-        memorySection.set(playerName + "." + id + ".progression", this.progression);
-        memorySection.set(playerName + "." + id + ".progression-end", this.progressionEnd);
+        memorySection.set(uuid + "." + id + ".model", questModel.getKey());
+        memorySection.set(uuid + "." + id + ".progression", this.progression);
+        memorySection.set(uuid + "." + id + ".progression-end", this.progressionEnd);
     }
 
     public String getStart() {
@@ -76,8 +77,8 @@ public class Quest {
         return this.completeTime == null ? "----/--/-- --:--:--" : completeTime.format(formatter);
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public UUID getUuid() {
+        return uuid;
     }
 
     public int getProgression() {

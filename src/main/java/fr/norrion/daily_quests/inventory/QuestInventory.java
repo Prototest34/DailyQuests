@@ -16,9 +16,10 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class QuestInventory {
-    private final String playerName;
+    private final UUID uuid;
     private final List<Quest> questList;
 
     private static final HashMap<Inventory, QuestInventory> inventoryList = new HashMap<>();
@@ -34,7 +35,7 @@ public class QuestInventory {
                     } else {
                         for (ItemStack item : inv.getStorageContents()) {
                             if (item != null && NBTUtils.isDailyQuestItem(item) && "QUEST".equals(NBTUtils.getCompound(item).getString("QUEST_FUNCTION"))) {
-                                Quest quest = QuestData.getQuestFromID(NBTUtils.getCompound(item).getString("QUEST_PLAYER"), NBTUtils.getCompound(item).getInteger("QUEST_ID"));
+                                Quest quest = QuestData.getQuestFromID(NBTUtils.getCompound(item).getUUID("QUEST_PLAYER_UUID"), NBTUtils.getCompound(item).getInteger("QUEST_ID"));
                                 inv.setItem(inv.first(item), InventoryItems.getQuest(quest));
                             }
                         }
@@ -53,16 +54,16 @@ public class QuestInventory {
         inventoryList.remove(inventory);
     }
 
-    public QuestInventory(String playerName) {
-        this.playerName = playerName;
-        this.questList = QuestData.getQuest(playerName);
+    public QuestInventory(UUID uuid) {
+        this.uuid = uuid;
+        this.questList = QuestData.getQuest(uuid);
     }
 
     public boolean openInventory(Player player, boolean admin) {
         List<String> pattern = Config.QUEST$PATTERN.getList();
         Inventory inv = Bukkit.createInventory(player,
                 pattern.size() * 9,
-                admin ? Message.QUEST$INVENTORY_NAME_OTHER.getString().replace("%player%", playerName) :
+                admin ? Message.QUEST$INVENTORY_NAME_OTHER.getString().replace("%player%", QuestData.getPlayerName(uuid)) :
                         Message.QUEST$INVENTORY_NAME.getString()
         );
         createInventory(inv, 0);

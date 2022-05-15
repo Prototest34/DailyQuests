@@ -99,7 +99,8 @@ public class QuestAdminCommand implements CommandExecutor, TabCompleter {
                 strings[0].equals("setprogress") ||
                 strings[0].equals("addprogress")) && strings.length == 3) {
             list.add(Message.COMMAND$MODEL$QUEST_ID.getString());
-            list.addAll(QuestData.getQuest(strings[1]).stream().map(quest -> String.valueOf(quest.getId())).toList());
+            //todo check uuid
+            list.addAll(QuestData.getQuest(QuestData.getPlayerData(strings[1]).uuid()).stream().map(quest -> String.valueOf(quest.getId())).toList());
         }
         return list;
     }

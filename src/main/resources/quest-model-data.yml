@@ -9,6 +9,9 @@ questModel:
     amount-to-break: 40
     rarity: NORMAL
     description:
+      - "&3Are you ready to do some quest ?"
+      - "&3Come on it's easy"
+    reward-text:
       - "&3Reward: &a64 diamond"
       - "&3Reward: &a64 ironbar"
     reward_type: COMMAND
@@ -26,7 +29,6 @@ questModel:
     amount-to-place: 128
     rarity: NORMAL
     reward_type: ITEMS
-    item: diamond
   KILL_ZOMBIE:
     name: "&a&lKill 10 zombies"
     material: "OAK_PLANKS"
@@ -96,6 +98,9 @@ questModel:
     rarity: NORMAL
     reward_type: MONEY,COMMAND
     money: 100
+    reward-text:
+      - "&b1x &aSuper broadcast"
+      - "&b1x &a100$"
     commands:
       - bc &a%player% has won &c100$
       - dqmessage:%player%:&aYou won: &c100$

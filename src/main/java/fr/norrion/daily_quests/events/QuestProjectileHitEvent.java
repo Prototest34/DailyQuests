@@ -24,7 +24,7 @@ public class QuestProjectileHitEvent implements Listener {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    QuestData.getUnfinishedQuest(player.getName()).stream()
+                    QuestData.getUnfinishedQuest(player.getUniqueId()).stream()
                             .filter(quest -> QuestModelType.HIT.equals(quest.getQuestModel().getType()))
                             .filter(quest -> ((QuestModelHit) quest.getQuestModel()).getEntity() == null || victimeType.equals(((QuestModelHit) quest.getQuestModel()).getEntity()))
                             .filter(quest -> ((QuestModelHit) quest.getQuestModel()).getDamageCause().isIntance(projectile))

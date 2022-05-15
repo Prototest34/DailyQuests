@@ -14,6 +14,7 @@ public enum Config {
     LANGUAGE_FILE("lang-en.yml"),
     PREFIX_PLUGIN("&7[&aDaily Quests&7] "),
     PURGECRON("0 0 * * * ?"),
+    CRON_NORMAL("0 0 * * * ?"),
     PURGE_OLD_HOUR(24),
     QUEST$PATTERN(Arrays.asList(
             "empty,empty,empty,empty,empty,empty,empty,empty,empty",
@@ -52,7 +53,8 @@ public enum Config {
     QUEST$PROGRESS_BAR$RED("&c"),
     QUEST$REFRESH(true),
     QUEST$REFRESH_TIME(20),
-    DEBUG(false);
+    DEBUG(false)
+    ;
 
     private static YamlConfiguration config;
     private static Main plugin;

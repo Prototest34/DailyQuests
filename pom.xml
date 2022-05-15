@@ -126,6 +126,16 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <artifactSet>
+                        <excludes>
+                            <exclude>de.tr7zw:*:jar</exclude>
+                            <exclude>de.tr7zw:functional-annotations:*</exclude>
+                            <exclude>org.jetbrains:*:*</exclude>
+                            <exclude>com.mchange:*:*</exclude>
+                            <exclude>com.zaxxer:*:*</exclude>
+                            <exclude>org.slf4j:*:*</exclude>
+                        </excludes>
+                    </artifactSet>
                     <relocations>
                         <relocation>
                             <pattern>de.tr7zw.changeme.nbtapi</pattern>

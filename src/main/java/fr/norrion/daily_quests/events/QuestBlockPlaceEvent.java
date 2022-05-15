@@ -18,7 +18,7 @@ public class QuestBlockPlaceEvent implements Listener {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    QuestData.getUnfinishedQuest(event.getPlayer().getName()).stream()
+                    QuestData.getUnfinishedQuest(event.getPlayer().getUniqueId()).stream()
                             .filter(quest -> QuestModelType.PLACE_BLOCK.equals(quest.getQuestModel().getType()))
                             .filter(quest -> materialBlock.equals(((QuestModelPlaceBlock) quest.getQuestModel()).getMaterial()))
                             .forEach(quest -> quest.addProgression(1));

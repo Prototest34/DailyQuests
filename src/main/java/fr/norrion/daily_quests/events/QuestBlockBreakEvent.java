@@ -18,7 +18,7 @@ public class QuestBlockBreakEvent implements Listener {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    QuestData.getUnfinishedQuest(event.getPlayer().getName()).stream()
+                    QuestData.getUnfinishedQuest(event.getPlayer().getUniqueId()).stream()
                             .filter(quest -> QuestModelType.BREAK_BLOCK.equals(quest.getQuestModel().getType()))
                             .filter(quest -> materialBlock.equals(((QuestModelBreakBlock) quest.getQuestModel()).getMaterial()))
                             .forEach(quest -> quest.addProgression(1));

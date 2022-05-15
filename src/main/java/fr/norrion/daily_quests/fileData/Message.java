@@ -27,7 +27,9 @@ public enum Message {
     SYSTEM$PURGECRON_ENABLE("PurgeQuest cron is enable", false),
     SYSTEM$PURGECRON_IN_PROGRESS("Purging ongoing quests", false),
     SYSTEM$PURGECRON_SUCCESS("&aDeleting %number% outdated quest", false),
-    SYSTEM$PURGECRON_INVALID("&cInvalid cron!", false),
+    SYSTEM$PURGECRON_INVALID("&cInvalid purge cron!", false),
+    SYSTEM$CREATE_CRON_ENABLE("CreateQuest cron is enable", false),
+    SYSTEM$CREATE_CRON_INVALID("&cInvalid create cron!", false),
     SYSTEM$VAULT_NOT_FOUND("&cCouldn't give the cash reward! Vault is not found!", false),
 
     DATE$MONTHS("month%s%", false),
@@ -72,6 +74,7 @@ public enum Message {
             "%prefix%Complete: %quest_complete%",
             "%prefix%Progress: %quest_progress%")),
     COMMAND$ADMIN_QUESTINFO$QUEST_NOT_FOUND("&cCannot find the quest", true),
+    COMMAND$ADMIN_QUESTINFO$PLAYER_NOT_FOUND("&cPlayer never connected", true),
     COMMAND$ADMIN_ADDPROGRESS$HELP("&aAdvances a player's quest", false),
     COMMAND$ADMIN_ADDPROGRESS$USE("/questadmin addprogress %model_player% %model_quest_model% %model_number% ", false),
     COMMAND$ADMIN_ADDPROGRESS$SUCCESS("&aQuest progress successfully modified"),
@@ -89,8 +92,9 @@ public enum Message {
     QUEST$INVENTORY_NAME_OTHER("&b%player% &aQuest List", false),
     QUEST$COMPLETED("&aCompleted", false),
     QUEST$FAILED("&cFailed", false),
+    SYSTEM$DISABLING_PLUGIN("Disabling Plugin", false)
+    ;
 
-    SYSTEM$DISABLING_PLUGIN("Disabling Plugin", false);
 
     private final Object message;
     private static String fileName;
@@ -124,7 +128,7 @@ public enum Message {
         } else {
             Logger.ErrorMessageToServerConsole(Message.SYSTEM$CANNOT_FIND_LANGUAGE_FILE.getString().replace("%file%", Message.fileName));
         }
-        Arrays.stream(Message.values()).forEach(message -> message.get());
+        Arrays.stream(Message.values()).forEach(Message::get);
     }
 
     private String getKey() {

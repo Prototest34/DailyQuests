@@ -11,29 +11,28 @@ import org.quartz.impl.StdSchedulerFactory;
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
-public class PurgeQuest implements Job {
+public class QuestCreateCron implements Job {
     private static Scheduler myScheduler;
 
-    public static void createPurge() {
+    public static void createCron() {
         try {
             JobDetail purgeQuest = JobBuilder.newJob(PurgeQuest.class)
-                    .withIdentity("jobPurgeQuest", "DailyQuest").build();
+                    .withIdentity("jobCreateQuest", "DailyQuest").build();
             CronTrigger myCron = newTrigger()
-                    .withIdentity("triggerPurgeQuest", "DailyQuest")
-                    .withSchedule(cronSchedule(Config.PURGECRON.getString()))
+                    .withIdentity("triggerCreateQuest", "DailyQuest")
+                    .withSchedule(cronSchedule(Config.CRON_NORMAL.getString()))
                     .forJob(purgeQuest)
                     .build();
 
             myScheduler = new StdSchedulerFactory().getScheduler();
             myScheduler.start();
             myScheduler.scheduleJob(purgeQuest, myCron);
-            Logger.InfoMessageToServerConsole(Message.SYSTEM$PURGECRON_ENABLE.getString());
+            Logger.InfoMessageToServerConsole(Message.SYSTEM$CREATE_CRON_ENABLE.getString());
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.ErrorMessageToServerConsole(Message.SYSTEM$PURGECRON_INVALID.getString());
+            Logger.ErrorMessageToServerConsole(Message.SYSTEM$CREATE_CRON_INVALID.getString());
         }
     }
-
     public static void disable() {
         try {
             if (myScheduler != null)
@@ -48,7 +47,7 @@ public class PurgeQuest implements Job {
         new BukkitRunnable() {
             @Override
             public void run() {
-                QuestData.giveNormalQuest();
+                QuestData.purge();
             }
         }.runTaskAsynchronously(Main.getInstance());
     }

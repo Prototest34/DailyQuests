@@ -5,14 +5,17 @@ import fr.norrion.daily_quests.command.QuestCommand;
 import fr.norrion.daily_quests.fileData.Config;
 import fr.norrion.daily_quests.fileData.Message;
 import fr.norrion.daily_quests.fileData.QuestData;
+import fr.norrion.daily_quests.model.quest.PlayerData;
 import fr.norrion.daily_quests.model.quest.Quest;
 import fr.norrion.daily_quests.utils.Logger;
 import org.apache.commons.lang.math.NumberUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.UUID;
 
 public class AdminQuestInfo implements QuestCommand {
     @Override
@@ -21,12 +24,17 @@ public class AdminQuestInfo implements QuestCommand {
             if (args.length > 2 && NumberUtils.isNumber(args[2])) {
                 String playerName = args[1];
                 int id = Integer.parseInt(args[2]);
-                Quest quest = QuestData.getQuestFromID(playerName, id);
+                PlayerData playerData = QuestData.getPlayerData(playerName);
+                if (playerData == null) {
+                    commandSender.sendMessage(Message.COMMAND$ADMIN_QUESTINFO$PLAYER_NOT_FOUND.getString());
+                    return;
+                }
+                Quest quest = QuestData.getQuestFromID(playerData.uuid(), id);
                 if (quest != null) {
                     List<String> list = Message.COMMAND$ADMIN_QUESTINFO$SUCCESS.getList();
                     for (String line : list) {
                         line = line.replace("%quest_id%", String.valueOf(quest.getId()))
-                                .replace("%player%", quest.getPlayerName())
+                                .replace("%player%", QuestData.getPlayerName(quest.getUuid()))
                                 .replace("%quest_model%", quest.getQuestModel().getKey())
                                 .replace("%quest_start%", quest.getStart())
                                 .replace("%quest_end%", quest.getEnd())

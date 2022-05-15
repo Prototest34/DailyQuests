@@ -1,5 +1,6 @@
 package fr.norrion.daily_quests.model.quest.reward;
 
+import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.model.quest.Quest;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -21,7 +22,7 @@ public class QuestRewardItems extends QuestReward {
 
     @Override
     public void execute(Quest quest) {
-        Player player = Bukkit.getPlayer(quest.getPlayerName());
+        Player player = Bukkit.getPlayer(QuestData.getPlayerName(quest.getUuid()));
         for (ItemStack item: itemStacks) {
             if (player.getInventory().firstEmpty() != -1) {
                 player.getInventory().addItem(item);
@@ -31,11 +32,6 @@ public class QuestRewardItems extends QuestReward {
                 world.dropItem(loc, item);
             }
         }
-    }
-
-    @Override
-    public String getRewardString() {
-        return "";
     }
 
     static public QuestRewardItems createOne(MemorySection memorySection, String key) {

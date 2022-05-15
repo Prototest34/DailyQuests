@@ -37,6 +37,4 @@ public abstract class QuestReward {
         }
         return res;
     }
-
-    public abstract String getRewardString();
 }

@@ -10,13 +10,15 @@ public abstract class QuestModel {
     private final String key;
     private final List<String> description;
     private final List<QuestReward> rewards;
+    private final List<String> rewardText;
 
-    public QuestModel(String pattern, QuestModelType type, String key, List<String> description, List<QuestReward> rewards) {
+    public QuestModel(String pattern, QuestModelType type, String key, List<String> description, List<QuestReward> rewards, List<String> rewardText) {
         this.pattern = pattern;
         this.type = type;
         this.key = key;
         this.description = description;
         this.rewards = rewards;
+        this.rewardText = rewardText;
     }
 
     public String getPattern() {
@@ -43,5 +45,9 @@ public abstract class QuestModel {
 
     public String getName() {
         return pattern.split(":").length > 2 ? pattern.split(":")[2] : "";
+    }
+
+    public List<String> getRewardText() {
+        return rewardText;
     }
 }

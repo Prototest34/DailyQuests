@@ -10,6 +10,8 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 
 public class AdminRemoveQuest implements QuestCommand {
     @Override
@@ -18,9 +20,11 @@ public class AdminRemoveQuest implements QuestCommand {
             if (args.length > 2 && NumberUtils.isNumber(args[2])) {
                 String playerName = args[1];
                 int id = Integer.parseInt(args[2]);
-                Quest quest = QuestData.getQuestFromID(playerName, id);
+                //todo check uuid
+                UUID uuid = QuestData.getPlayerData(playerName).uuid();
+                Quest quest = QuestData.getQuestFromID(uuid, id);
                 if (quest != null) {
-                    QuestData.removeQuest(playerName, quest);
+                    QuestData.removeQuest(uuid, quest);
                     commandSender.sendMessage(Message.COMMAND$ADMIN_REMOVEQUEST$SUCCESS.getString().replace("%player%", playerName));
                 } else {
                     commandSender.sendMessage(Message.COMMAND$ADMIN_REMOVEQUEST$QUEST_NOT_FOUND.getString());

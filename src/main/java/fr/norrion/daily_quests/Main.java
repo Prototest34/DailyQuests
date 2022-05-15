@@ -8,10 +8,7 @@ import fr.norrion.daily_quests.fileData.Message;
 import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.fileData.QuestModelData;
 import fr.norrion.daily_quests.inventory.QuestInventory;
-import fr.norrion.daily_quests.utils.Logger;
-import fr.norrion.daily_quests.utils.PurgeQuest;
-import fr.norrion.daily_quests.utils.Startup;
-import fr.norrion.daily_quests.utils.VaultDependency;
+import fr.norrion.daily_quests.utils.*;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -40,6 +37,7 @@ public class Main extends JavaPlugin {
     public void onDisable() {
         super.onDisable();
         PurgeQuest.disable();
+        QuestCreateCron.disable();
         Logger.InfoMessageToServerConsole(Message.SYSTEM$DISABLING_PLUGIN.getString());
     }
 
@@ -58,11 +56,13 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new QuestBlockPlaceEvent(), this);
         this.getServer().getPluginManager().registerEvents(new QuestKillEvent(), this);
         this.getServer().getPluginManager().registerEvents(new QuestProjectileHitEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new QuestPlayerJoin(), this);
         if (Config.QUEST$REFRESH.getBoolean()) {
             this.getServer().getPluginManager().registerEvents(new QuestInventoryCloseEvent(), this);
             QuestInventory.launchRefreshInv();
         }
         PurgeQuest.createPurge();
+        QuestCreateCron.createCron();
     }
 
     public static void reload() {

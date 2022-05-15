@@ -16,13 +16,8 @@ public class QuestRewardMoney extends QuestReward {
 
     @Override
     public void execute(Quest quest) {
-        OfflinePlayer player = Bukkit.getOfflinePlayer(quest.getPlayerName());
+        OfflinePlayer player = Bukkit.getOfflinePlayer(quest.getUuid());
         VaultDependency.giveMoney(player, money);
-    }
-
-    @Override
-    public String getRewardString() {
-        return "";
     }
 
     static public QuestRewardMoney createOne(MemorySection memorySection, String key) {

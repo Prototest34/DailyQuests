@@ -12,8 +12,8 @@ public class QuestModelBreakBlock extends QuestModel {
     private Material material;
     private int amount;
 
-    public QuestModelBreakBlock(String pattern, String key, List<String> description, List<QuestReward> rewards) {
-        super(pattern, QuestModelType.BREAK_BLOCK, key, description, rewards);
+    public QuestModelBreakBlock(String pattern, String key, List<String> description, List<QuestReward> rewards, List<String> rewardText) {
+        super(pattern, QuestModelType.BREAK_BLOCK, key, description, rewards, rewardText);
     }
 
     public static QuestModelBreakBlock create(MemorySection memorySection, String key) {
@@ -30,7 +30,11 @@ public class QuestModelBreakBlock extends QuestModel {
             String nameBlockToBreak = memorySection.getString("block-to-break");
             int amountBlockToBreak = memorySection.getInt("amount-to-break");
             List<String> description = memorySection.contains("description") ? memorySection.getStringList("description") : new ArrayList<>();
-            QuestModelBreakBlock quest = new QuestModelBreakBlock(pattern, key, description, QuestReward.create(memorySection, key));
+            List<String> rewardText = new ArrayList<>();
+            if (memorySection.contains("reward-text") && memorySection.isList("reward-text")) {
+                rewardText = memorySection.getStringList("reward-text");
+            }
+            QuestModelBreakBlock quest = new QuestModelBreakBlock(pattern, key, description, QuestReward.create(memorySection, key), rewardText);
             quest.amount = amountBlockToBreak;
             quest.material = Material.getMaterial(nameBlockToBreak.toUpperCase());
             return quest;

@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class AdminAddQuest implements QuestCommand {
     @Override
@@ -22,7 +23,9 @@ public class AdminAddQuest implements QuestCommand {
                 String modelName = args[2];
                 QuestModel questModel = QuestModelData.getQuestModel(modelName);
                 if (questModel != null) {
-                    QuestData.addQuest(playerName, new Quest(QuestData.getNextIdQuest(playerName), playerName, LocalDateTime.now(), LocalDateTime.now().plusDays(1), null, questModel));
+                    UUID uuid = QuestData.getPlayerData(playerName).uuid();
+                    //todo check uuid
+                    QuestData.addQuest(uuid, new Quest(QuestData.getNextIdQuest(uuid), uuid, LocalDateTime.now(), LocalDateTime.now().plusDays(1), null, questModel));
                     commandSender.sendMessage(Message.COMMAND$ADMIN_ADDQUEST$SUCCESS.getString().replace("%player%", playerName));
                 } else {
                     commandSender.sendMessage(Message.COMMAND$ADMIN_ADDQUEST$MODEL_NOT_FOUND.getString().replace("%model%", modelName));

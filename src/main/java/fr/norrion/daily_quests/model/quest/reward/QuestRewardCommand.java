@@ -1,6 +1,7 @@
 package fr.norrion.daily_quests.model.quest.reward;
 
 import fr.norrion.daily_quests.Main;
+import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.model.quest.Quest;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,6 +24,7 @@ public class QuestRewardCommand extends QuestReward {
             @Override
             public void run() {
                 for (String command : commands) {
+                    String playerName = QuestData.getPlayerName(quest.getUuid());
                     if (command.startsWith("dqmessage:") && command.split(":").length > 3) {
                         StringBuilder sb = new StringBuilder();
                         for (int i = 2; i < command.split(":").length; i++) {
@@ -31,22 +33,17 @@ public class QuestRewardCommand extends QuestReward {
                                 sb.append(":");
                             }
                         }
-                        if (Bukkit.getPlayer(command.split(":")[1].replace("%player%", quest.getPlayerName())) != null)
-                            Bukkit.getPlayer(command.split(":")[1].replace("%player%", quest.getPlayerName())).sendMessage(ChatColor.translateAlternateColorCodes('&', sb.toString()));
+                        if (Bukkit.getPlayer(command.split(":")[1].replace("%player%", playerName)) != null)
+                            Bukkit.getPlayer(command.split(":")[1].replace("%player%", playerName)).sendMessage(ChatColor.translateAlternateColorCodes('&', sb.toString()));
                     } else {
                         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command
-                                .replace("%player%", quest.getPlayerName())
+                                .replace("%player%", playerName)
                                 .replace("%quest_name%", quest.getQuestModel().getName())
                         );
                     }
                 }
             }
         }.runTask(Main.getInstance());
-    }
-
-    @Override
-    public String getRewardString() {
-        return "";
     }
 
     static public QuestRewardCommand createOne(MemorySection memorySection, String key) {

@@ -23,7 +23,7 @@ public class QuestKillEvent implements Listener {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    QuestData.getUnfinishedQuest(player.getName()).stream()
+                    QuestData.getUnfinishedQuest(player.getUniqueId()).stream()
                             .filter(quest -> QuestModelType.KILL.equals(quest.getQuestModel().getType()))
                             .filter(quest -> victimeType.equals(((QuestModelKill) quest.getQuestModel()).getEntity()))
                             .forEach(quest -> quest.addProgression(1));

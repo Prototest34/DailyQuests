@@ -25,7 +25,7 @@ public class QuestCommand implements CommandExecutor, TabCompleter {
                 if (commandSender instanceof Player) {
                     if ((player = (Player) commandSender).hasPermission(MyPermission.QUEST_ACCESS.getPermission())) {
                         if (strings.length == 0) {
-                            new QuestInventory(player.getName()).openInventory(player, false);
+                            new QuestInventory(player.getUniqueId()).openInventory(player, false);
                         }
                     } else {
                         player.sendMessage(Message.SYSTEM$NO_PERMISSION.getString());

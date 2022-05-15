@@ -5,7 +5,6 @@ import fr.norrion.daily_quests.utils.enumeration.ListProjectile;
 import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.EntityType;
-import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +15,8 @@ public class QuestModelHit extends QuestModel {
     private int amount;
     private boolean dealOrHit;
 
-    public QuestModelHit(String pattern, String key, List<String> description, List<QuestReward> rewards) {
-        super(pattern, QuestModelType.HIT, key, description, rewards);
+    public QuestModelHit(String pattern, String key, List<String> description, List<QuestReward> rewards, List<String> rewardText) {
+        super(pattern, QuestModelType.HIT, key, description, rewards, rewardText);
 
     }
 
@@ -57,7 +56,11 @@ public class QuestModelHit extends QuestModel {
             int amountToHit = memorySection.getInt("amount-to-hit");
             int amountDamage = memorySection.getInt("amount-damage");
             List<String> description = memorySection.contains("description") ? memorySection.getStringList("description") : new ArrayList<>();
-            QuestModelHit quest = new QuestModelHit(pattern, key, description, QuestReward.create(memorySection, key));
+            List<String> rewardText = new ArrayList<>();
+            if (memorySection.contains("reward-text") && memorySection.isList("reward-text")) {
+                rewardText = memorySection.getStringList("reward-text");
+            }
+            QuestModelHit quest = new QuestModelHit(pattern, key, description, QuestReward.create(memorySection, key), rewardText);
             quest.damageCause = ListProjectile.valueOf(damageCause.toUpperCase());
             quest.entity = entity != null ? EntityType.valueOf(entity.toUpperCase()): null;
             quest.amount = amountDamage != 0 ? amountDamage : amountToHit;

@@ -3,6 +3,7 @@ package fr.norrion.daily_quests.command.admin;
 import fr.norrion.daily_quests.MyPermission;
 import fr.norrion.daily_quests.command.QuestCommand;
 import fr.norrion.daily_quests.fileData.Message;
+import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.inventory.QuestInventory;
 import fr.norrion.daily_quests.utils.Logger;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,8 @@ public class AdminQuest implements QuestCommand {
                 return;
             }
             if (args.length > 1) {
-                new QuestInventory(args[1]).openInventory((Player) commandSender, true);
+                //todo check uuid
+                new QuestInventory(QuestData.getPlayerData(args[1]).uuid()).openInventory((Player) commandSender, true);
             } else {
                 commandSender.sendMessage(Message.SYSTEM$BAD_COMMAND_USE.getString() + Message.COMMAND$ADMIN_QUEST$USE.getString());
             }

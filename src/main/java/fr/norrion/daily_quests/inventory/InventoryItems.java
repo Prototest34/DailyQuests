@@ -79,8 +79,8 @@ public class InventoryItems {
                 continue;
             }
             if (line.contains("%rewards%")) {
-                for (QuestReward reward: quest.getQuestModel().getRewards()) {
-                    lore.add(ChatColor.translateAlternateColorCodes('&', reward.getRewardString()));
+                for (String rewardString: quest.getQuestModel().getRewardText()) {
+                    lore.add(ChatColor.translateAlternateColorCodes('&', rewardString));
                 }
                 continue;
             }
@@ -96,7 +96,7 @@ public class InventoryItems {
         item.setItemMeta(im);
         NBTCompound nbtCompound = NBTUtils.getCompound(item);
         nbtCompound.setInteger("QUEST_ID", quest.getId());
-        nbtCompound.setString("QUEST_PLAYER", quest.getPlayerName());
+        nbtCompound.setUUID("QUEST_PLAYER_UUID", quest.getUuid());
         nbtCompound.setString("QUEST_FUNCTION", "QUEST");
         return item;
     }

@@ -3,7 +3,9 @@ package fr.norrion.daily_quests.events;
 import de.tr7zw.changeme.nbtapi.NBTCompound;
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.Message;
+import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.inventory.QuestInventory;
+import fr.norrion.daily_quests.model.quest.Quest;
 import fr.norrion.daily_quests.utils.NBTUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,8 +42,8 @@ public class QuestInventoryEvent implements Listener {
     private void adminAsynchronously(@NotNull InventoryClickEvent e) {
         if (e.getCurrentItem() != null && NBTUtils.isDailyQuestItem(e.getCurrentItem())) {
             Integer id = NBTUtils.getCompound(e.getCurrentItem()).getInteger("QUEST_ID");
-            String playerName = NBTUtils.getCompound(e.getCurrentItem()).getString("QUEST_PLAYER");
-            if (id != null && playerName != null) {
+            String playerName = QuestData.getPlayerName(NBTUtils.getCompound(e.getCurrentItem()).getUUID("QUEST_PLAYER_UUID"));
+            if (id != null) {
                 Player p = (Player) e.getWhoClicked();
                 new BukkitRunnable() {
                     @Override

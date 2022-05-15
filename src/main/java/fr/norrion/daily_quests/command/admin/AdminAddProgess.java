@@ -17,7 +17,8 @@ public class AdminAddProgess implements QuestCommand {
             if (args.length > 3 && NumberUtils.isNumber(args[2]) && NumberUtils.isNumber(args[3])) {
                 String playerName = args[1];
                 int id = Integer.parseInt(args[2]);
-                Quest quest = QuestData.getQuestFromID(playerName, id);
+                //todo check uuid
+                Quest quest = QuestData.getQuestFromID(QuestData.getPlayerData(playerName).uuid(), id);
                 if (quest != null) {
                     quest.addProgression(Math.min(Integer.parseInt(args[3]), quest.getProgressionEnd() - quest.getProgression()));
                     commandSender.sendMessage(Message.COMMAND$ADMIN_ADDPROGRESS$SUCCESS.getString());
