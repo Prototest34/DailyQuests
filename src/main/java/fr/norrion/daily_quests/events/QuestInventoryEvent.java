@@ -5,7 +5,6 @@ import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.Message;
 import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.inventory.QuestInventory;
-import fr.norrion.daily_quests.model.quest.Quest;
 import fr.norrion.daily_quests.utils.NBTUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

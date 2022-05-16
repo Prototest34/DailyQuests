@@ -58,6 +58,7 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new QuestProjectileHitEvent(), this);
         this.getServer().getPluginManager().registerEvents(new QuestPlayerJoin(), this);
         this.getServer().getPluginManager().registerEvents(new QuestEntityBreedEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new QuestEntityShootBowEvent(), this);
         if (Config.QUEST$REFRESH.getBoolean()) {
             this.getServer().getPluginManager().registerEvents(new QuestInventoryCloseEvent(), this);
             QuestInventory.launchRefreshInv();

@@ -1,22 +1,18 @@
 package fr.norrion.daily_quests.model.quest;
 
-import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.Config;
 import fr.norrion.daily_quests.fileData.Message;
 import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.fileData.QuestModelData;
 import fr.norrion.daily_quests.model.quest.model.QuestModel;
-import fr.norrion.daily_quests.model.quest.model.QuestModelBreakBlock;
-import fr.norrion.daily_quests.model.quest.model.QuestModelType;
 import fr.norrion.daily_quests.model.quest.reward.QuestReward;
 import fr.norrion.daily_quests.utils.BossBarUtils;
 import fr.norrion.daily_quests.utils.Logger;
-import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
-import org.bukkit.boss.*;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -183,7 +179,7 @@ public class Quest {
                 .replace("%quest%", this.questModel.getName())
                 .replace("%progress-value%", String.valueOf(this.progression))
                 .replace("%progress-end%", String.valueOf(this.progressionEnd));
-        BossBar bossBar = BossBarUtils.getBossBar("QuestProgress"+ player.getUniqueId(), title, BarColor.valueOf(Config.QUEST$BOSS_BAR_COLOR.getString()), BarStyle.valueOf(Config.QUEST$BOSS_BAR_STYLE.getString()));
+        BossBar bossBar = BossBarUtils.getBossBar("QuestProgress"+ player.getUniqueId()+ this.id, title, BarColor.valueOf(Config.QUEST$BOSS_BAR_COLOR.getString()), BarStyle.valueOf(Config.QUEST$BOSS_BAR_STYLE.getString()));
         bossBar.setProgress(1.0*this.progression/this.progressionEnd);
         bossBar.addPlayer(player);
         BossBarUtils.resetDelay(bossBar);

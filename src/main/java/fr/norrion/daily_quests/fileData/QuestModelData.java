@@ -41,6 +41,7 @@ public class QuestModelData {
                 case KILL -> questModel = QuestModelKill.create(memorySection, key);
                 case HIT -> questModel = QuestModelHit.create(memorySection, key);
                 case BREED -> questModel = QuestModelBreed.create(memorySection, key);
+                case SHOOT_ARROW -> questModel = QuestModelShootArrow.create(memorySection, key);
             }
             if (questModel != null) {
                 questModels.add(questModel);

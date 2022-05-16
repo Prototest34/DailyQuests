@@ -4,7 +4,6 @@ import de.tr7zw.changeme.nbtapi.NBTCompound;
 import fr.norrion.daily_quests.fileData.Config;
 import fr.norrion.daily_quests.fileData.Message;
 import fr.norrion.daily_quests.model.quest.Quest;
-import fr.norrion.daily_quests.model.quest.reward.QuestReward;
 import fr.norrion.daily_quests.utils.Logger;
 import fr.norrion.daily_quests.utils.NBTUtils;
 import org.bukkit.ChatColor;

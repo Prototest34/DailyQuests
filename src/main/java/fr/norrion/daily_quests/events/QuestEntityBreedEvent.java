@@ -3,7 +3,6 @@ package fr.norrion.daily_quests.events;
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.model.quest.model.QuestModelBreed;
-import fr.norrion.daily_quests.model.quest.model.QuestModelKill;
 import fr.norrion.daily_quests.model.quest.model.QuestModelType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

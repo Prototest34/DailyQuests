@@ -117,3 +117,30 @@ questModel:
       - "&3Creating power"
     reward-text:
       - "&3No reward"
+  SHOOT_ARROW_HEAL:
+    name: "&a&lShoot 10 arrow of Healing"
+    material: "ARROW"
+    potion-type: "HEAL"
+    amount: 10
+    custom-model: 0
+    type: SHOOT_ARROW
+    entity: "SHEEP"
+    amount-to-shoot: 10
+    rarity: NORMAL
+    description:
+      - "&c&oCupidon"
+    reward-text:
+      - "&3No reward"
+  SHOOT_ARROW:
+    name: "&a&lShoot 100 arrow of Healing"
+    material: "ARROW"
+    amount: 64
+    custom-model: 0
+    type: SHOOT_ARROW
+    entity: "SHEEP"
+    amount-to-shoot: 100
+    rarity: NORMAL
+    description:
+      - "&3Sniper"
+    reward-text:
+      - "&3No reward"

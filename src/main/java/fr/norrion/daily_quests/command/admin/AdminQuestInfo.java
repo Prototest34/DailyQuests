@@ -9,13 +9,11 @@ import fr.norrion.daily_quests.model.quest.PlayerData;
 import fr.norrion.daily_quests.model.quest.Quest;
 import fr.norrion.daily_quests.utils.Logger;
 import org.apache.commons.lang.math.NumberUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.UUID;
 
 public class AdminQuestInfo implements QuestCommand {
     @Override

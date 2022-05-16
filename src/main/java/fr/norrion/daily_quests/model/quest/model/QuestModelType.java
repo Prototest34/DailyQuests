@@ -4,5 +4,7 @@ public enum QuestModelType {
     BREAK_BLOCK,
     PLACE_BLOCK,
     KILL,
-    HIT, BREED;
+    HIT,
+    BREED,
+    SHOOT_ARROW
 }
