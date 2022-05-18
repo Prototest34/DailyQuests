@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerFishEvent;
 public class QuestPlayerFishing implements Listener {
     @EventHandler
     public void onPlayerFishing(PlayerFishEvent playerFishEvent) {
-        if (!playerFishEvent.isCancelled()){
+        if (!playerFishEvent.isCancelled()) {
 
         }
 

@@ -1,13 +1,8 @@
 package fr.norrion.daily_quests.model.quest.model;
 
-import fr.norrion.daily_quests.model.quest.reward.QuestReward;
 import fr.norrion.daily_quests.utils.enumeration.ListProjectile;
-import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.EntityType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class QuestModelHit extends QuestModel {
     private final ListProjectile damageCause;
@@ -18,7 +13,7 @@ public class QuestModelHit extends QuestModel {
         super(memorySection, key);
 
         String entity = memorySection.getString("entity");
-        this.entity = entity != null ? EntityType.valueOf(entity.toUpperCase()): null;
+        this.entity = entity != null ? EntityType.valueOf(entity.toUpperCase()) : null;
 
         String damageCause = memorySection.getString("damage-cause");
         this.damageCause = damageCause != null ? ListProjectile.valueOf(damageCause.toUpperCase()) : null;

@@ -36,8 +36,8 @@ public class QuestData {
         for (String UUIDString : QuestData.config.getKeys(false)) {
             UUID uuid = UUID.fromString(UUIDString);
             List<Quest> questList = new ArrayList<>();
-            MemorySection memorySection = (MemorySection) QuestData.config.get(UUIDString+".quest");
-            if (memorySection != null){
+            MemorySection memorySection = (MemorySection) QuestData.config.get(UUIDString + ".quest");
+            if (memorySection != null) {
                 for (String key : memorySection.getKeys(false)) {
                     try {
                         questList.add(new Quest(Integer.parseInt(key), (MemorySection) memorySection.getConfigurationSection(key), uuid));

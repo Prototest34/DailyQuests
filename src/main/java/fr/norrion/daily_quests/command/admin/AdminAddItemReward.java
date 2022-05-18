@@ -26,8 +26,7 @@ public class AdminAddItemReward implements QuestCommand {
                             reward.addItem(player.getInventory().getItemInMainHand());
                             QuestModelData.saveRewardsItems(questModel);
                             player.sendMessage(Message.COMMAND$ADMIN_ADDITEMREWARD$SUCCESS.getString());
-                        }
-                        else {
+                        } else {
                             player.sendMessage(Message.COMMAND$ADMIN_ADDITEMREWARD$NO_ITEM.getString());
                         }
                     } else {
@@ -44,8 +43,7 @@ public class AdminAddItemReward implements QuestCommand {
                 Logger.logDebugMessage("Player " + player.getDisplayName() + " don't have permission to do /questadmin addquest");
                 commandSender.sendMessage(Message.SYSTEM$NO_PERMISSION.getString());
             }
-        }
-        else {
+        } else {
             commandSender.sendMessage(Message.SYSTEM$ONLY_PLAYER_COMMAND.getString());
         }
     }

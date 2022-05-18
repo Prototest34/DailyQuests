@@ -77,10 +77,10 @@ public class QuestModelData {
     }
 
     public static void saveRewardsItems(QuestModel questModel) {
-        QuestModelData.config.set("questModel."+questModel.getKey()+".items", "");
-        for (QuestReward reward: questModel.getRewards()) {
+        QuestModelData.config.set("questModel." + questModel.getKey() + ".items", "");
+        for (QuestReward reward : questModel.getRewards()) {
             if (reward instanceof QuestRewardItems) {
-                ((QuestRewardItems)reward).save(QuestModelData.config, "questModel."+questModel.getKey()+".items");
+                ((QuestRewardItems) reward).save(QuestModelData.config, "questModel." + questModel.getKey() + ".items");
             }
         }
         try {
@@ -93,12 +93,12 @@ public class QuestModelData {
 
     @Nullable
     public static QuestModel getRandomQuestModel() {
-        if (QuestModelData.questModels.isEmpty()){
+        if (QuestModelData.questModels.isEmpty()) {
             return null;
         }
         Random random = new Random();
 
-        int value = random.nextInt(QuestModelData.questModels.size()-1);
+        int value = random.nextInt(QuestModelData.questModels.size() - 1);
         return QuestModelData.questModels.get(value);
     }
 }

@@ -16,7 +16,7 @@ public class PurgeQuest implements Job {
 
     public static void createPurge() {
         try {
-            if (myScheduler != null && myScheduler.isStarted()){
+            if (myScheduler != null && myScheduler.isStarted()) {
                 myScheduler.shutdown();
             }
             JobDetail purgeQuest = JobBuilder.newJob(PurgeQuest.class)

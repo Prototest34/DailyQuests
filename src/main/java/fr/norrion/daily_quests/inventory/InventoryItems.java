@@ -72,13 +72,13 @@ public class InventoryItems {
                 continue;
             }
             if (line.contains("%description%")) {
-                for (String description: quest.getQuestModel().getDescription()) {
+                for (String description : quest.getQuestModel().getDescription()) {
                     lore.add(ChatColor.translateAlternateColorCodes('&', description));
                 }
                 continue;
             }
             if (line.contains("%rewards%")) {
-                for (String rewardString: quest.getQuestModel().getRewardText()) {
+                for (String rewardString : quest.getQuestModel().getRewardText()) {
                     lore.add(ChatColor.translateAlternateColorCodes('&', rewardString));
                 }
                 continue;

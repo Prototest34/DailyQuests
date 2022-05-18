@@ -57,8 +57,7 @@ public enum Config {
     QUEST$BOSS_BAR_COLOR("BLUE"),
     QUEST$BOSS_BAR_STYLE("SOLID"),
     QUEST$BOSS_BAR_MESSAGE("%quest% &8[&b%progress-value%/%progress-end%&8]"),
-    DEBUG(false)
-    ;
+    DEBUG(false);
 
     private static YamlConfiguration config;
     private static Main plugin;

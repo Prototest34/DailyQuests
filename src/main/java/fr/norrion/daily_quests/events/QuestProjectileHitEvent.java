@@ -3,8 +3,6 @@ package fr.norrion.daily_quests.events;
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.model.quest.model.QuestModelHit;
-import fr.norrion.daily_quests.model.quest.model.QuestModelShootArrow;
-import fr.norrion.daily_quests.model.quest.model.QuestModelType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -35,8 +33,7 @@ public class QuestProjectileHitEvent implements Listener {
                             .forEach(quest -> {
                                 if (((QuestModelHit) quest.getQuestModel()).isDealOrHit()) {
                                     quest.addProgressionWithBossBar(damage.intValue(), player);
-                                }
-                                else {
+                                } else {
                                     quest.addProgressionWithBossBar(1, player);
                                 }
                             });

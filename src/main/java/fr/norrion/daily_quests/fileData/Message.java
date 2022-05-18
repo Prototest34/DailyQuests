@@ -94,8 +94,7 @@ public enum Message {
     QUEST$INVENTORY_NAME_OTHER("&b%player% &aQuest List", false),
     QUEST$COMPLETED("&aCompleted", false),
     QUEST$FAILED("&cFailed", false),
-    SYSTEM$DISABLING_PLUGIN("Disabling Plugin", false)
-    ;
+    SYSTEM$DISABLING_PLUGIN("Disabling Plugin", false);
 
 
     private final Object message;

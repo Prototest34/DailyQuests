@@ -10,7 +10,7 @@ import fr.norrion.daily_quests.utils.BossBarUtils;
 import fr.norrion.daily_quests.utils.Logger;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
+import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 
@@ -179,8 +179,8 @@ public class Quest {
                 .replace("%quest%", this.questModel.getName())
                 .replace("%progress-value%", String.valueOf(this.progression))
                 .replace("%progress-end%", String.valueOf(this.progressionEnd));
-        BossBar bossBar = BossBarUtils.getBossBar("QuestProgress"+ player.getUniqueId()+ this.id, title, BarColor.valueOf(Config.QUEST$BOSS_BAR_COLOR.getString()), BarStyle.valueOf(Config.QUEST$BOSS_BAR_STYLE.getString()));
-        bossBar.setProgress(1.0*this.progression/this.progressionEnd);
+        KeyedBossBar bossBar = BossBarUtils.getBossBar("QuestProgress" + player.getUniqueId() + this.id, title, BarColor.valueOf(Config.QUEST$BOSS_BAR_COLOR.getString()), BarStyle.valueOf(Config.QUEST$BOSS_BAR_STYLE.getString()));
+        bossBar.setProgress(1.0 * this.progression / this.progressionEnd);
         bossBar.addPlayer(player);
         BossBarUtils.resetDelay(bossBar);
     }

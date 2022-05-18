@@ -2,9 +2,7 @@ package fr.norrion.daily_quests.events;
 
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.QuestData;
-import fr.norrion.daily_quests.model.quest.model.QuestModelKill;
 import fr.norrion.daily_quests.model.quest.model.QuestModelPlaceBlock;
-import fr.norrion.daily_quests.model.quest.model.QuestModelType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

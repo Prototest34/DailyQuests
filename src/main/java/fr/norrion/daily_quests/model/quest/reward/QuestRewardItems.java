@@ -23,7 +23,7 @@ public class QuestRewardItems extends QuestReward {
     @Override
     public void execute(Quest quest) {
         Player player = Bukkit.getPlayer(QuestData.getPlayerName(quest.getUuid()));
-        for (ItemStack item: itemStacks) {
+        for (ItemStack item : itemStacks) {
             if (player.getInventory().firstEmpty() != -1) {
                 player.getInventory().addItem(item);
             } else {

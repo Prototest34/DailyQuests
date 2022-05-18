@@ -16,7 +16,7 @@ public class QuestCreateCron implements Job {
 
     public static void createCron() {
         try {
-            if (myScheduler != null && myScheduler.isStarted()){
+            if (myScheduler != null && myScheduler.isStarted()) {
                 myScheduler.shutdown();
             }
             JobDetail createCron = JobBuilder.newJob(QuestCreateCron.class)
@@ -36,6 +36,7 @@ public class QuestCreateCron implements Job {
             Logger.ErrorMessageToServerConsole(Message.SYSTEM$CREATE_CRON_INVALID.getString());
         }
     }
+
     public static void disable() {
         try {
             if (myScheduler != null)
