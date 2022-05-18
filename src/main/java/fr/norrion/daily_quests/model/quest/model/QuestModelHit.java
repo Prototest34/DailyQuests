@@ -10,22 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestModelHit extends QuestModel {
-    private ListProjectile damageCause;
-    private EntityType entity;
-    private int amount;
-    private boolean dealOrHit;
+    private final ListProjectile damageCause;
+    private final EntityType entity;
+    private final boolean dealOrHit;
 
-    public QuestModelHit(String pattern, String key, List<String> description, List<QuestReward> rewards, List<String> rewardText) {
-        super(pattern, QuestModelType.HIT, key, description, rewards, rewardText);
+    public QuestModelHit(MemorySection memorySection, String key) {
+        super(memorySection, key);
 
+        String entity = memorySection.getString("entity");
+        this.entity = entity != null ? EntityType.valueOf(entity.toUpperCase()): null;
+
+        String damageCause = memorySection.getString("damage-cause");
+        this.damageCause = damageCause != null ? ListProjectile.valueOf(damageCause.toUpperCase()) : null;
+
+        this.dealOrHit = memorySection.getBoolean("deal", false);
     }
 
     public ListProjectile getDamageCause() {
         return damageCause;
-    }
-
-    public int getAmount() {
-        return amount;
     }
 
     public EntityType getEntity() {
@@ -38,35 +40,6 @@ public class QuestModelHit extends QuestModel {
 
     @Override
     public int getProgressionEnd() {
-        return amount;
-    }
-
-    public static QuestModelHit create(MemorySection memorySection, String key) {
-        if (memorySection.contains("material")
-                && memorySection.contains("damage-cause")
-                && (memorySection.contains("amount-to-hit") || memorySection.contains("amount-damage"))
-                && memorySection.contains("rarity")) {
-            String material = memorySection.getString("material");
-            int amount = memorySection.contains("amount") ? memorySection.getInt("amount") : 1;
-            String name = memorySection.contains("name") ? memorySection.getString("name") : "";
-            String customModel = (memorySection.contains("custom-model") && NumberUtils.isNumber(key)) ? memorySection.getString("custom-model") : "";
-            String pattern = material + ":" + amount + ":" + name + ":" + customModel;
-            String damageCause = memorySection.getString("damage-cause");
-            String entity = memorySection.getString("entity");
-            int amountToHit = memorySection.getInt("amount-to-hit");
-            int amountDamage = memorySection.getInt("amount-damage");
-            List<String> description = memorySection.contains("description") ? memorySection.getStringList("description") : new ArrayList<>();
-            List<String> rewardText = new ArrayList<>();
-            if (memorySection.contains("reward-text") && memorySection.isList("reward-text")) {
-                rewardText = memorySection.getStringList("reward-text");
-            }
-            QuestModelHit quest = new QuestModelHit(pattern, key, description, QuestReward.create(memorySection, key), rewardText);
-            quest.damageCause = ListProjectile.valueOf(damageCause.toUpperCase());
-            quest.entity = entity != null ? EntityType.valueOf(entity.toUpperCase()): null;
-            quest.amount = amountDamage != 0 ? amountDamage : amountToHit;
-            quest.dealOrHit = amountDamage != 0;
-            return quest;
-        }
-        return null;
+        return amountNeed;
     }
 }

@@ -1,146 +1,138 @@
 questModel:
   BREAK_GRASS_BLOCK:
-    name: "&a&lBreak 40 grass block"
-    material: "GRASS_BLOCK"
-    amount: 40
-    custom-model: 0
     type: BREAK_BLOCK
-    block-to-break: "GRASS_BLOCK"
-    amount-to-break: 40
-    rarity: NORMAL
+    material: "GRASS_BLOCK"
+    material-amount: 40
+    amount-need: 40
+    name: "&a&lBreak 40 grass block"
+    custom-model: 0
     description:
       - "&3Are you ready to do some quest ?"
       - "&3Come on it's easy"
-    reward-text:
-      - "&3Reward: &a64 diamond"
-      - "&3Reward: &a64 ironbar"
     reward_type: COMMAND
     commands:
     - give %player% diamond 64
     - give %player% ironbar 64
     - bc &c%player% has finish quest %quest_name%
+    reward-text:
+      - "&3Reward: &a64 diamond"
+      - "&3Reward: &a64 ironbar"
+    block-to-break: "GRASS_BLOCK"
   PLACE_OAK_PLANKS_BLOCK:
-    name: "&a&lPlace 128 grass block"
-    material: "OAK_PLANKS"
-    amount: 1
-    custom-model: 0
     type: PLACE_BLOCK
-    block-to-place: "OAK_PLANKS"
-    amount-to-place: 128
-    rarity: NORMAL
-    reward_type: ITEMS
-  KILL_ZOMBIE:
-    name: "&a&lKill 10 zombies"
     material: "OAK_PLANKS"
-    amount: 1
+    material-amount: 1
+    amount-need: 128
+    name: "&a&lPlace 128 grass block"
     custom-model: 0
+    reward_type: ITEMS
+    block-to-place: "OAK_PLANKS"
+  KILL_ZOMBIE:
     type: KILL
-    entity: "ZOMBIE"
-    amount-to-kill: 10
-    rarity: NORMAL
+    material: "OAK_PLANKS"
+    material-amount: 1
+    amount-need: 10
+    name: "&a&lKill 10 zombies"
+    custom-model: 0
     reward_type: MONEY,COMMAND
     money: 100
     commands:
       - bc &a%player% has won &c100$
       - dqmessage:%player%:&aYou won: &c100$
+    entity: "ZOMBIE"
   HIT_ARROW:
+    type: HIT
+    material: "ARROW"
+    material-amount: 10
+    amount-need: 10
     name: "&a&lHit 10 time with arrow"
-    material: "ARROW"
-    amount: 10
     custom-model: 0
-    type: HIT
-    damage-cause: ARROW
-    amount-to-hit: 10
-    rarity: NORMAL
     reward_type: MONEY,COMMAND
     money: 100
     commands:
       - bc &a%player% has won &c100$
       - dqmessage:%player%:&aYou won: &c100$
+    damage-cause: ARROW
   HIT_ARROW_ZOMBIE:
+    type: HIT
+    material: "ARROW"
+    material-amount: 5
+    amount-need: 5
     name: "&a&lHit 5 zombie with arrow"
-    material: "ARROW"
-    amount: 5
     custom-model: 0
-    type: HIT
-    damage-cause: ARROW
-    amount-to-hit: 5
-    entity: "ZOMBIE"
-    rarity: NORMAL
     reward_type: MONEY,COMMAND
     money: 100
     commands:
       - bc &a%player% has won &c100$
       - dqmessage:%player%:&aYou won: &c100$
+    damage-cause: ARROW
+    entity: "ZOMBIE"
   DEAL_ARROW:
-    name: "&a&lDeal 100 damage with arrow"
-    material: "ARROW"
-    amount: 1
-    custom-model: 0
     type: HIT
-    damage-cause: ARROW
-    amount-damage: 100
-    rarity: NORMAL
+    material: "ARROW"
+    material-amount: 1
+    amount-need: 100
+    name: "&a&lDeal 100 damage with arrow"
+    custom-model: 0
     reward_type: MONEY,COMMAND
     money: 100
     commands:
       - bc &a%player% has won &c100$
       - dqmessage:%player%:&aYou won: &c100$
-  DEAL_ARROW_ZOMBIE:
-    name: "&a&lDeal 50 damage to zombie with arrow"
-    material: "ARROW"
-    amount: 50
-    custom-model: 0
-    type: HIT
     damage-cause: ARROW
-    amount-damage: 50
-    entity: "ZOMBIE"
-    rarity: NORMAL
+    deal: true
+  DEAL_ARROW_ZOMBIE:
+    type: HIT
+    material: "ARROW"
+    material-amount: 50
+    amount-need: 50
+    name: "&a&lDeal 50 damage to zombie with arrow"
+    custom-model: 0
     reward_type: MONEY,COMMAND
     money: 100
+    commands:
+      - bc &a%player% has won &c100$
+      - dqmessage:%player%:&aYou won: &c100$
     reward-text:
       - "&b1x &aSuper broadcast"
       - "&b1x &a100$"
-    commands:
-      - bc &a%player% has won &c100$
-      - dqmessage:%player%:&aYou won: &c100$
+    damage-cause: ARROW
+    entity: "ZOMBIE"
+    deal: true
   BREED_SHEEP:
-    name: "&a&lBreed 10 sheep"
-    material: "SHEEP_SPAWN_EGG"
-    amount: 10
-    custom-model: 0
     type: BREED
-    entity: "SHEEP"
-    amount-to-breed: 10
-    rarity: NORMAL
+    material: "SHEEP_SPAWN_EGG"
+    material-amount: 10
+    amount-need: 10
+    name: "&a&lBreed 10 sheep"
+    custom-model: 0
     description:
       - "&3Creating power"
     reward-text:
       - "&3No reward"
-  SHOOT_ARROW_HEAL:
-    name: "&a&lShoot 10 arrow of Healing"
-    material: "ARROW"
-    potion-type: "HEAL"
-    amount: 10
-    custom-model: 0
-    type: SHOOT_ARROW
     entity: "SHEEP"
-    amount-to-shoot: 10
-    rarity: NORMAL
+  SHOOT_ARROW_HEAL:
+    type: SHOOT_ARROW
+    material: "ARROW"
+    material-amount: 10
+    amount-need: 10
+    name: "&a&lShoot 10 arrow of Healing"
+    custom-model: 0
     description:
       - "&c&oCupidon"
     reward-text:
       - "&3No reward"
-  SHOOT_ARROW:
-    name: "&a&lShoot 100 arrow of Healing"
-    material: "ARROW"
-    amount: 64
-    custom-model: 0
-    type: SHOOT_ARROW
     entity: "SHEEP"
-    amount-to-shoot: 100
-    rarity: NORMAL
+    potion-type: "HEAL"
+  SHOOT_ARROW:
+    type: SHOOT_ARROW
+    material: "ARROW"
+    material-amount: 64
+    amount-need: 100
+    name: "&a&lShoot 100 arrow of Healing"
+    custom-model: 0
     description:
       - "&3Sniper"
     reward-text:
       - "&3No reward"
+    entity: "SHEEP"

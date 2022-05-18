@@ -2,6 +2,7 @@ package fr.norrion.daily_quests.events;
 
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.QuestData;
+import fr.norrion.daily_quests.model.quest.model.QuestModelPlaceBlock;
 import fr.norrion.daily_quests.model.quest.model.QuestModelShootArrow;
 import fr.norrion.daily_quests.model.quest.model.QuestModelType;
 import org.bukkit.entity.Arrow;
@@ -27,7 +28,7 @@ public class QuestEntityShootBowEvent implements Listener {
                 @Override
                 public void run() {
                     QuestData.getUnfinishedQuest(player.getUniqueId()).stream()
-                            .filter(quest -> QuestModelType.SHOOT_ARROW.equals(quest.getQuestModel().getType()))
+                            .filter(quest -> quest.getQuestModel() instanceof QuestModelShootArrow)
                             .filter(quest -> ((QuestModelShootArrow) quest.getQuestModel()).getPotionEffectType() == null || list.contains(((QuestModelShootArrow) quest.getQuestModel()).getPotionEffectType()))
                             .forEach(quest -> quest.addProgressionWithBossBar(1, player));
                 }

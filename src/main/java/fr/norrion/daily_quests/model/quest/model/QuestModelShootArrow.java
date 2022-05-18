@@ -10,20 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestModelShootArrow extends QuestModel {
-    private EntityType entity;
-    private int amount;
-    private PotionEffectType potionEffectType;
+    private final EntityType entity;
+    private final PotionEffectType potionEffectType;
 
-    public QuestModelShootArrow(String pattern, String key, List<String> description, List<QuestReward> rewards, List<String> rewardText) {
-        super(pattern, QuestModelType.SHOOT_ARROW, key, description, rewards, rewardText);
+    public QuestModelShootArrow(MemorySection memorySection, String key) {
+        super(memorySection, key);
+
+        String entity = memorySection.getString("entity", null);
+        this.entity = entity != null ? EntityType.valueOf(entity.toUpperCase()): null;
+
+        String potion = memorySection.getString("potion-type", null);
+        this.potionEffectType = potion != null ? PotionEffectType.getByName(potion.toUpperCase()) : null;
     }
+
 
     public EntityType getEntity() {
         return entity;
     }
 
     public int getAmount() {
-        return amount;
+        return amountNeed;
     }
 
     public PotionEffectType getPotionEffectType() {
@@ -32,34 +38,6 @@ public class QuestModelShootArrow extends QuestModel {
 
     @Override
     public int getProgressionEnd() {
-        return amount;
-    }
-
-    public static QuestModelShootArrow create(MemorySection memorySection, String key) {
-        if (memorySection.contains("material")
-                && memorySection.contains("entity")
-                && memorySection.contains("amount-to-shoot")
-                && memorySection.contains("rarity")) {
-            String material = memorySection.getString("material");
-            int amount = memorySection.contains("amount") ? memorySection.getInt("amount") : 1;
-            String name = memorySection.contains("name") ? memorySection.getString("name") : "";
-            String customModel = (memorySection.contains("custom-model") && NumberUtils.isNumber(key)) ? memorySection.getString("custom-model") : "";
-            String pattern = material + ":" + amount + ":" + name + ":" + customModel;
-            String entity = memorySection.getString("entity");
-            int amountToKill = memorySection.getInt("amount-to-shoot");
-            List<String> description = memorySection.contains("description") ? memorySection.getStringList("description") : new ArrayList<>();
-            List<String> rewardText = new ArrayList<>();
-            if (memorySection.contains("reward-text") && memorySection.isList("reward-text")) {
-                rewardText = memorySection.getStringList("reward-text");
-            }
-            QuestModelShootArrow quest = new QuestModelShootArrow(pattern, key, description, QuestReward.create(memorySection, key), rewardText);
-            if (memorySection.contains("potion-type") && memorySection.isString("potion-type")){
-                quest.potionEffectType = PotionEffectType.getByName(memorySection.getString("potion-type"));
-            }
-            quest.entity = EntityType.valueOf(entity.toUpperCase());
-            quest.amount = amountToKill;
-            return quest;
-        }
-        return null;
+        return amountNeed;
     }
 }

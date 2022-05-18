@@ -3,6 +3,7 @@ package fr.norrion.daily_quests.events;
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.model.quest.model.QuestModelBreakBlock;
+import fr.norrion.daily_quests.model.quest.model.QuestModelHit;
 import fr.norrion.daily_quests.model.quest.model.QuestModelType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -21,7 +22,7 @@ public class QuestBlockBreakEvent implements Listener {
                 @Override
                 public void run() {
                     QuestData.getUnfinishedQuest(event.getPlayer().getUniqueId()).stream()
-                            .filter(quest -> QuestModelType.BREAK_BLOCK.equals(quest.getQuestModel().getType()))
+                            .filter(quest -> quest.getQuestModel() instanceof QuestModelBreakBlock)
                             .filter(quest -> materialBlock.equals(((QuestModelBreakBlock) quest.getQuestModel()).getMaterial()))
                             .forEach(quest -> quest.addProgressionWithBossBar(1, player));
                 }

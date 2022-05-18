@@ -2,6 +2,7 @@ package fr.norrion.daily_quests.events;
 
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.QuestData;
+import fr.norrion.daily_quests.model.quest.model.QuestModelKill;
 import fr.norrion.daily_quests.model.quest.model.QuestModelPlaceBlock;
 import fr.norrion.daily_quests.model.quest.model.QuestModelType;
 import org.bukkit.Material;
@@ -21,7 +22,7 @@ public class QuestBlockPlaceEvent implements Listener {
                 @Override
                 public void run() {
                     QuestData.getUnfinishedQuest(event.getPlayer().getUniqueId()).stream()
-                            .filter(quest -> QuestModelType.PLACE_BLOCK.equals(quest.getQuestModel().getType()))
+                            .filter(quest -> quest.getQuestModel() instanceof QuestModelPlaceBlock)
                             .filter(quest -> materialBlock.equals(((QuestModelPlaceBlock) quest.getQuestModel()).getMaterial()))
                             .forEach(quest -> quest.addProgressionWithBossBar(1, player));
                 }

@@ -2,6 +2,7 @@ package fr.norrion.daily_quests.events;
 
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.QuestData;
+import fr.norrion.daily_quests.model.quest.model.QuestModelBreed;
 import fr.norrion.daily_quests.model.quest.model.QuestModelKill;
 import fr.norrion.daily_quests.model.quest.model.QuestModelType;
 import org.bukkit.entity.Entity;
@@ -24,7 +25,7 @@ public class QuestKillEvent implements Listener {
                 @Override
                 public void run() {
                     QuestData.getUnfinishedQuest(player.getUniqueId()).stream()
-                            .filter(quest -> QuestModelType.KILL.equals(quest.getQuestModel().getType()))
+                            .filter(quest -> quest.getQuestModel() instanceof QuestModelKill)
                             .filter(quest -> victimeType.equals(((QuestModelKill) quest.getQuestModel()).getEntity()))
                             .forEach(quest -> quest.addProgressionWithBossBar(1, player));
                 }

@@ -20,7 +20,7 @@ public class QuestEntityBreedEvent implements Listener {
                 @Override
                 public void run() {
                     QuestData.getUnfinishedQuest(player.getUniqueId()).stream()
-                            .filter(quest -> QuestModelType.BREED.equals(quest.getQuestModel().getType()))
+                            .filter(quest -> quest.getQuestModel() instanceof QuestModelBreed)
                             .filter(quest -> entity.getType().equals(((QuestModelBreed) quest.getQuestModel()).getEntity()))
                             .forEach(quest -> quest.addProgressionWithBossBar(1, player));
                 }

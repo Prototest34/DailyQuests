@@ -1,24 +1,30 @@
 package fr.norrion.daily_quests.model.quest.model;
 
 import fr.norrion.daily_quests.model.quest.reward.QuestReward;
+import org.bukkit.configuration.MemorySection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class QuestModel {
     private final String pattern;
-    private final QuestModelType type;
     private final String key;
     private final List<String> description;
     private final List<QuestReward> rewards;
     private final List<String> rewardText;
+    protected final int amountNeed;
 
-    public QuestModel(String pattern, QuestModelType type, String key, List<String> description, List<QuestReward> rewards, List<String> rewardText) {
-        this.pattern = pattern;
-        this.type = type;
+    protected QuestModel(MemorySection memorySection, String key) {
+        String material = memorySection.getString("material", "STONE");
+        int amount = memorySection.getInt("material-amount", 1);
+        String name = memorySection.getString("name", key);
+        String customModel = memorySection.getString("custom-model", "");
+        this.amountNeed = memorySection.getInt("amount-need");
         this.key = key;
-        this.description = description;
-        this.rewards = rewards;
-        this.rewardText = rewardText;
+        this.pattern = material + ":" + amount + ":" + name + ":" + customModel;
+        this.description = (List<String>) memorySection.getList("description", new ArrayList<>());
+        this.rewards = QuestReward.create(memorySection, key);
+        this.rewardText = (List<String>) memorySection.getList("reward-text", new ArrayList<>());
     }
 
     public String getPattern() {
@@ -31,10 +37,6 @@ public abstract class QuestModel {
 
     public List<String> getDescription() {
         return this.description;
-    }
-
-    public QuestModelType getType() {
-        return type;
     }
 
     public abstract int getProgressionEnd();

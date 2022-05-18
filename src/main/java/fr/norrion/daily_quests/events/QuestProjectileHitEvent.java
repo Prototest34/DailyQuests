@@ -3,6 +3,7 @@ package fr.norrion.daily_quests.events;
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.model.quest.model.QuestModelHit;
+import fr.norrion.daily_quests.model.quest.model.QuestModelShootArrow;
 import fr.norrion.daily_quests.model.quest.model.QuestModelType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -28,7 +29,7 @@ public class QuestProjectileHitEvent implements Listener {
                 @Override
                 public void run() {
                     QuestData.getUnfinishedQuest(player.getUniqueId()).stream()
-                            .filter(quest -> QuestModelType.HIT.equals(quest.getQuestModel().getType()))
+                            .filter(quest -> quest.getQuestModel() instanceof QuestModelHit)
                             .filter(quest -> ((QuestModelHit) quest.getQuestModel()).getEntity() == null || victimeType.equals(((QuestModelHit) quest.getQuestModel()).getEntity()))
                             .filter(quest -> ((QuestModelHit) quest.getQuestModel()).getDamageCause().isIntance(projectile))
                             .forEach(quest -> {

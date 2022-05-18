@@ -1,6 +1,7 @@
 package fr.norrion.daily_quests.fileData;
 
 import fr.norrion.daily_quests.Main;
+import fr.norrion.daily_quests.exeption.InvalidQuest;
 import fr.norrion.daily_quests.model.quest.model.*;
 import fr.norrion.daily_quests.model.quest.reward.QuestReward;
 import fr.norrion.daily_quests.model.quest.reward.QuestRewardItems;
@@ -27,25 +28,31 @@ public class QuestModelData {
         QuestModelData.configFile = new File(QuestModelData.plugin.getDataFolder(), QuestModelData.fileName);
         QuestModelData.config = QuestModelData.plugin.loadConfiguration(QuestModelData.configFile, QuestModelData.fileName);
         Logger.InfoMessageToServerConsole(Message.SYSTEM$FILE_LOADED_SUCCESS.getString().replace("%file%", QuestModelData.fileName));
-        for (String key : ((MemorySection) QuestModelData.config.get("questModel")).getKeys(false)) {
-            createModel((MemorySection) QuestModelData.config.get("questModel." + key), key);
+        MemorySection questModel = (MemorySection) QuestModelData.config.get("questModel");
+        if (questModel == null) {
+            return;
+        }
+        for (String key : questModel.getKeys(false)) {
+            createModel((MemorySection) questModel.get(key), key);
         }
     }
 
     private static void createModel(MemorySection memorySection, String key) {
-        if (memorySection.contains("type") && Arrays.stream(QuestModelType.values()).map(Enum::name).toList().contains(memorySection.getString("type"))) {
-            QuestModel questModel = null;
-            switch (QuestModelType.valueOf(memorySection.getString("type").toUpperCase())) {
-                case BREAK_BLOCK -> questModel = QuestModelBreakBlock.create(memorySection, key);
-                case PLACE_BLOCK -> questModel = QuestModelPlaceBlock.create(memorySection, key);
-                case KILL -> questModel = QuestModelKill.create(memorySection, key);
-                case HIT -> questModel = QuestModelHit.create(memorySection, key);
-                case BREED -> questModel = QuestModelBreed.create(memorySection, key);
-                case SHOOT_ARROW -> questModel = QuestModelShootArrow.create(memorySection, key);
-            }
-            if (questModel != null) {
+        String type = memorySection.getString("type", null);
+        if (type != null && Arrays.stream(QuestModelType.values()).map(Enum::name).toList().contains(type)) {
+            try {
+                QuestModel questModel = null;
+                switch (QuestModelType.valueOf(type.toUpperCase())) {
+                    case BREAK_BLOCK -> questModel = new QuestModelBreakBlock(memorySection, key);
+                    case PLACE_BLOCK -> questModel = new QuestModelPlaceBlock(memorySection, key);
+                    case KILL -> questModel = new QuestModelKill(memorySection, key);
+                    case HIT -> questModel = new QuestModelHit(memorySection, key);
+                    case BREED -> questModel = new QuestModelBreed(memorySection, key);
+                    case SHOOT_ARROW -> questModel = new QuestModelShootArrow(memorySection, key);
+                }
                 questModels.add(questModel);
-            } else {
+            } catch (InvalidQuest e) {
+                e.printStackTrace();
                 Logger.InfoMessageToServerConsole(Message.SYSTEM$BAD_MODEL.getString().replace("%path%", "questModel." + key));
             }
         } else {
