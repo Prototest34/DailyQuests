@@ -220,13 +220,9 @@ public class Quest {
             reward.execute(this);
         }
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(this.uuid);
-        if (offlinePlayer.isOnline() && this.questModel.getSound() != null) {
+        if (offlinePlayer.isOnline()) {
             Player p = offlinePlayer.getPlayer();
-            if (this.questModel.getSoundCategory() == null) {
-                p.playSound(p.getLocation(), this.questModel.getSound(),1, 1);
-            } else {
-                p.playSound(p.getLocation(), this.questModel.getSound(), this.questModel.getSoundCategory(), 1, 1);
-            }
+            this.questModel.playSound(p);
         }
     }
 }

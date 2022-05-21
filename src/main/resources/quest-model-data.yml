@@ -9,6 +9,11 @@ questModel:
     description:
       - "&3Are you ready to do some quest ?"
       - "&3Come on it's easy"
+    sound:
+      sound: "minecraft:ui.toast.challenge_complete"
+      sound-category: "neutral"
+      volume: 10
+      pitch: 2
     reward_type: COMMAND
     commands:
     - give %player% diamond 64
@@ -23,7 +28,7 @@ questModel:
     material: "OAK_PLANKS"
     material-amount: 1
     amount-need: 128
-    name: "&a&lPlace 128 grass block"
+    name: "&a&lPlace 128 oak planks"
     custom-model: 0
     reward_type: ITEMS
     block-to-place: "OAK_PLANKS"
@@ -146,7 +151,7 @@ questModel:
       - "&3Fish"
     reward-text:
       - "&3No reward"
-  FISH_S:
+  FISH_SALMON:
     type: FISH
     material: "SALMON"
     material-amount: 10

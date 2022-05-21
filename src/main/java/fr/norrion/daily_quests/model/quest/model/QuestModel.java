@@ -1,9 +1,9 @@
 package fr.norrion.daily_quests.model.quest.model;
 
 import fr.norrion.daily_quests.model.quest.reward.QuestReward;
-import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
+import fr.norrion.daily_quests.utils.QuestSound;
 import org.bukkit.configuration.MemorySection;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +15,7 @@ public abstract class QuestModel {
     private final List<String> description;
     private final List<QuestReward> rewards;
     private final List<String> rewardText;
-    private final String sound;
-    private final SoundCategory soundCategory;
+    private final QuestSound sound;
 
     protected QuestModel(MemorySection memorySection, String key) {
         String material = memorySection.getString("material", "STONE");
@@ -29,11 +28,10 @@ public abstract class QuestModel {
         this.description = (List<String>) memorySection.getList("description", new ArrayList<>());
         this.rewards = QuestReward.create(memorySection, key);
         this.rewardText = (List<String>) memorySection.getList("reward-text", new ArrayList<>());
-        this.sound = memorySection.getString("sound", null);
-        if (memorySection.contains("soundCategory")) {
-            this.soundCategory = SoundCategory.valueOf(memorySection.getString("sound", null));
+        if (memorySection.contains("sound")) {
+            this.sound = new QuestSound(memorySection.getConfigurationSection("sound"));
         } else {
-            this.soundCategory = null;
+            this.sound = null;
         }
     }
 
@@ -63,11 +61,8 @@ public abstract class QuestModel {
         return rewardText;
     }
 
-    public String getSound() {
-        return sound;
-    }
-
-    public SoundCategory getSoundCategory() {
-        return soundCategory;
+    public void playSound(Player player) {
+        if (this.sound != null)
+            this.sound.play(player);
     }
 }
