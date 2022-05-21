@@ -81,6 +81,7 @@ public enum Message {
     COMMAND$ADMIN_ADDPROGRESS$USE("/questadmin addprogress %model_player% %model_quest_model% %model_number% ", false),
     COMMAND$ADMIN_ADDPROGRESS$SUCCESS("&aQuest progress successfully modified"),
     COMMAND$ADMIN_ADDPROGRESS$QUEST_NOT_FOUND("&cCannot find the quest", true),
+    COMMAND$ADMIN_ADDPROGRESS$PLAYER_NOT_FOUND("&cCannot find the player", true),
     COMMAND$ADMIN_SETPROGRESS$HELP("&aDefines the progress of a player's quest", false),
     COMMAND$ADMIN_SETPROGRESS$USE("/questadmin setprogress %model_player% %model_quest_model% %model_number% ", false),
     COMMAND$ADMIN_SETPROGRESS$SUCCESS("&aQuest progress successfully modified"),

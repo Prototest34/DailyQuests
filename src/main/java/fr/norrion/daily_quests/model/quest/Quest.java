@@ -8,10 +8,15 @@ import fr.norrion.daily_quests.model.quest.model.QuestModel;
 import fr.norrion.daily_quests.model.quest.reward.QuestReward;
 import fr.norrion.daily_quests.utils.BossBarUtils;
 import fr.norrion.daily_quests.utils.Logger;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.configuration.MemorySection;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
@@ -159,15 +164,16 @@ public class Quest {
                 .replace("%suffix%", Config.QUEST$PROGRESS_BAR$SUFFIX.getString());
     }
 
-    public void addProgression(int i) {
-        this.progression += i;
+    public void setProgression(int i) {
+        this.progression = i;
         if (isComplete()) {
-            this.completeTime = LocalDateTime.now();
-            for (QuestReward reward : this.getQuestModel().getRewards()) {
-                reward.execute(this);
-            }
+            finish();
         }
         save();
+    }
+
+    public void addProgression(int i) {
+        setProgression(i + this.progression);
     }
 
     public void addProgressionWithBossBar(int i, Player player) {
@@ -183,18 +189,6 @@ public class Quest {
         bossBar.setProgress(1.0 * this.progression / this.progressionEnd);
         bossBar.addPlayer(player);
         BossBarUtils.resetDelay(bossBar);
-    }
-
-    public void setProgression(int i) {
-        this.progression = i;
-        if (isComplete()) {
-            this.progression = this.progressionEnd;
-            this.completeTime = LocalDateTime.now();
-            for (QuestReward reward : this.getQuestModel().getRewards()) {
-                reward.execute(this);
-            }
-        }
-        save();
     }
 
     private void save() {
@@ -217,5 +211,22 @@ public class Quest {
     public boolean needToBePurge() {
         return (isComplete() && completeTime.plusHours(Config.PURGE_OLD_HOUR.getInt()).isBefore(LocalDateTime.now())) ||
                 (isFailed() && end.plusHours(Config.PURGE_OLD_HOUR.getInt()).isBefore(LocalDateTime.now()));
+    }
+
+    private void finish() {
+        this.progression = this.progressionEnd;
+        this.completeTime = LocalDateTime.now();
+        for (QuestReward reward : this.getQuestModel().getRewards()) {
+            reward.execute(this);
+        }
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(this.uuid);
+        if (offlinePlayer.isOnline() && this.questModel.getSound() != null) {
+            Player p = offlinePlayer.getPlayer();
+            if (this.questModel.getSoundCategory() == null) {
+                p.playSound(p.getLocation(), this.questModel.getSound(),1, 1);
+            } else {
+                p.playSound(p.getLocation(), this.questModel.getSound(), this.questModel.getSoundCategory(), 1, 1);
+            }
+        }
     }
 }

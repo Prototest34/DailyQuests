@@ -1,18 +1,22 @@
 package fr.norrion.daily_quests.model.quest.model;
 
 import fr.norrion.daily_quests.model.quest.reward.QuestReward;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.configuration.MemorySection;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class QuestModel {
+    protected final int amountNeed;
     private final String pattern;
     private final String key;
     private final List<String> description;
     private final List<QuestReward> rewards;
     private final List<String> rewardText;
-    protected final int amountNeed;
+    private final String sound;
+    private final SoundCategory soundCategory;
 
     protected QuestModel(MemorySection memorySection, String key) {
         String material = memorySection.getString("material", "STONE");
@@ -25,6 +29,12 @@ public abstract class QuestModel {
         this.description = (List<String>) memorySection.getList("description", new ArrayList<>());
         this.rewards = QuestReward.create(memorySection, key);
         this.rewardText = (List<String>) memorySection.getList("reward-text", new ArrayList<>());
+        this.sound = memorySection.getString("sound", null);
+        if (memorySection.contains("soundCategory")) {
+            this.soundCategory = SoundCategory.valueOf(memorySection.getString("sound", null));
+        } else {
+            this.soundCategory = null;
+        }
     }
 
     public String getPattern() {
@@ -51,5 +61,13 @@ public abstract class QuestModel {
 
     public List<String> getRewardText() {
         return rewardText;
+    }
+
+    public String getSound() {
+        return sound;
+    }
+
+    public SoundCategory getSoundCategory() {
+        return soundCategory;
     }
 }

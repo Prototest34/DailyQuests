@@ -4,6 +4,7 @@ import fr.norrion.daily_quests.MyPermission;
 import fr.norrion.daily_quests.command.QuestCommand;
 import fr.norrion.daily_quests.fileData.Message;
 import fr.norrion.daily_quests.fileData.QuestData;
+import fr.norrion.daily_quests.model.quest.PlayerData;
 import fr.norrion.daily_quests.model.quest.Quest;
 import fr.norrion.daily_quests.utils.Logger;
 import org.apache.commons.lang.math.NumberUtils;
@@ -18,7 +19,12 @@ public class AdminAddProgess implements QuestCommand {
                 String playerName = args[1];
                 int id = Integer.parseInt(args[2]);
                 //todo check uuid
-                Quest quest = QuestData.getQuestFromID(QuestData.getPlayerData(playerName).uuid(), id);
+                PlayerData playerData = QuestData.getPlayerData(playerName);
+                if (playerData == null) {
+                    commandSender.sendMessage(Message.COMMAND$ADMIN_ADDPROGRESS$PLAYER_NOT_FOUND.getString());
+                    return;
+                }
+                Quest quest = QuestData.getQuestFromID(playerData.uuid(), id);
                 if (quest != null) {
                     quest.addProgression(Math.min(Integer.parseInt(args[3]), quest.getProgressionEnd() - quest.getProgression()));
                     commandSender.sendMessage(Message.COMMAND$ADMIN_ADDPROGRESS$SUCCESS.getString());
