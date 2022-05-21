@@ -49,6 +49,7 @@ public class QuestModelData {
                     case HIT -> questModel = new QuestModelHit(memorySection, key);
                     case BREED -> questModel = new QuestModelBreed(memorySection, key);
                     case SHOOT_ARROW -> questModel = new QuestModelShootArrow(memorySection, key);
+                    case FISH -> questModel = new QuestModelFish(memorySection, key);
                 }
                 questModels.add(questModel);
             } catch (InvalidQuest e) {

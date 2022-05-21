@@ -6,5 +6,6 @@ public enum QuestModelType {
     KILL,
     HIT,
     BREED,
-    SHOOT_ARROW
+    SHOOT_ARROW,
+    FISH
 }

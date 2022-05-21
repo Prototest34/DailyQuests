@@ -136,3 +136,24 @@ questModel:
     reward-text:
       - "&3No reward"
     entity: "SHEEP"
+  FISH:
+    type: FISH
+    material: "COD"
+    material-amount: 10
+    amount-need: 10
+    name: "&a&lCatch 10 fish"
+    description:
+      - "&3Fish"
+    reward-text:
+      - "&3No reward"
+  FISH_S:
+    type: FISH
+    material: "SALMON"
+    material-amount: 10
+    amount-need: 10
+    name: "&a&lCatch 10 salmon"
+    description:
+      - "&3Fish"
+    reward-text:
+      - "&3No reward"
+    item-fish: "SALMON"
