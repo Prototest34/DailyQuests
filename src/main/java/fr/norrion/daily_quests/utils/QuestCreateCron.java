@@ -51,7 +51,7 @@ public class QuestCreateCron implements Job {
         new BukkitRunnable() {
             @Override
             public void run() {
-                QuestData.giveNormalQuest();
+                QuestData.giveQuest();
             }
         }.runTaskAsynchronously(Main.getInstance());
     }

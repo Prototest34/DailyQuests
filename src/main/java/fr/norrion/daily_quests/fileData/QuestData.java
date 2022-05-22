@@ -6,7 +6,7 @@ import fr.norrion.daily_quests.model.quest.Quest;
 import fr.norrion.daily_quests.model.quest.model.QuestModel;
 import fr.norrion.daily_quests.utils.Logger;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import javax.annotation.Nullable;
@@ -36,11 +36,11 @@ public class QuestData {
         for (String UUIDString : QuestData.config.getKeys(false)) {
             UUID uuid = UUID.fromString(UUIDString);
             List<Quest> questList = new ArrayList<>();
-            MemorySection memorySection = (MemorySection) QuestData.config.get(UUIDString + ".quest");
-            if (memorySection != null) {
-                for (String key : memorySection.getKeys(false)) {
+            ConfigurationSection configurationSection = QuestData.config.getConfigurationSection(UUIDString + ".quest");
+            if (configurationSection != null) {
+                for (String key : configurationSection.getKeys(false)) {
                     try {
-                        questList.add(new Quest(Integer.parseInt(key), (MemorySection) memorySection.getConfigurationSection(key), uuid));
+                        questList.add(new Quest(Integer.parseInt(key), configurationSection.getConfigurationSection(key), uuid));
                     } catch (Exception e) {
                         e.printStackTrace();
                         Logger.ErrorMessageToServerConsole(Message.SYSTEM$QUEST_ERROR_LOAD.getString().replace("%path%", UUIDString + "." + key));
@@ -185,7 +185,7 @@ public class QuestData {
         Logger.InfoMessageToServerConsole(Message.SYSTEM$PURGECRON_SUCCESS.getString().replace("%number%", String.valueOf(questDelete)));
     }
 
-    public static void giveNormalQuest() {
+    public static void giveQuest() {
         int i = 0;
         for (PlayerData playerData : playerDataList) {
             QuestModel questModel = QuestModelData.getRandomQuestModel();

@@ -1,17 +1,15 @@
 package fr.norrion.daily_quests.model.quest.model;
 
-import fr.norrion.daily_quests.exeption.InvalidQuest;
 import org.bukkit.Material;
-import org.bukkit.configuration.MemorySection;
-import org.bukkit.entity.EntityType;
+import org.bukkit.configuration.ConfigurationSection;
 
 public class QuestModelFish extends QuestModel {
     private final Material itemFish;
 
-    public QuestModelFish(MemorySection memorySection, String key) {
-        super(memorySection, key);
+    public QuestModelFish(ConfigurationSection configurationSection, String key) {
+        super(configurationSection, key);
 
-        String itemFish = memorySection.getString("item-fish");
+        String itemFish = configurationSection.getString("item-fish");
         this.itemFish = itemFish != null ? Material.valueOf(itemFish.toUpperCase()) : null;
     }
 

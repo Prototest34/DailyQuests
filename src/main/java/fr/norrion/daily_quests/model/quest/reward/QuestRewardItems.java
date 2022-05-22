@@ -5,7 +5,7 @@ import fr.norrion.daily_quests.model.quest.Quest;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -34,12 +34,12 @@ public class QuestRewardItems extends QuestReward {
         }
     }
 
-    static public QuestRewardItems createOne(MemorySection memorySection, String key) {
+    static public QuestRewardItems createOne(ConfigurationSection configurationSection, String key) {
         List<ItemStack> list = new ArrayList<>();
-        if (memorySection.contains("items") && memorySection.isConfigurationSection("items")) {
-            for (String key2 : memorySection.getConfigurationSection("items").getKeys(false)) {
-                if (memorySection.isItemStack("items." + key2)) {
-                    list.add(memorySection.getItemStack("items." + key2));
+        if (configurationSection.contains("items") && configurationSection.isConfigurationSection("items")) {
+            for (String key2 : configurationSection.getConfigurationSection("items").getKeys(false)) {
+                if (configurationSection.isItemStack("items." + key2)) {
+                    list.add(configurationSection.getItemStack("items." + key2));
                 }
             }
         }
@@ -50,7 +50,7 @@ public class QuestRewardItems extends QuestReward {
         this.itemStacks.add(mainHand);
     }
 
-    public void save(MemorySection config, String path) {
+    public void save(ConfigurationSection config, String path) {
         int index = 0;
         for (ItemStack item : itemStacks) {
             config.set(path + "." + index, item);

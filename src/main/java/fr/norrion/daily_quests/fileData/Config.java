@@ -39,7 +39,9 @@ public enum Config {
             "%separator%",
             "%rewards%",
             "%separator%",
-            "%description%"
+            "%description%",
+            "%separator%",
+            "%rarity%"
     )),
     QUEST$SEPARATOR("&7✩&7&l&m━━━━━━━━━━━━━━━━━━━━━━&r&7✩"),
     QUEST$PROGRESS_BAR$PATTERN("%prefix%%progress-bar-character%%suffix%"),

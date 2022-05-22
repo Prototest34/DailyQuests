@@ -1,0 +1,29 @@
+questRarity:
+  NORMAL:
+    color: "&f"
+    percentage: 1
+    name: "&fNormal"
+  COMMON:
+    color: "&a"
+    percentage: 0.8
+    name: "&aCommon"
+  UNCOMMON:
+    color: "&b"
+    percentage: 0.6
+    name: "&bUncommon"
+  RARE:
+    color: "&e"
+    percentage: 0.5
+    name: "&eRare"
+  EPIC:
+    color: "&d"
+    percentage: 0.4
+    name: "&dEpic"
+  LEGENDARY:
+    color: "&6"
+    percentage: 0.3
+    name: "&6Legendary"
+  UNIQUE:
+    color: "&c"
+    percentage: 0.1
+    name: "&cUnique"

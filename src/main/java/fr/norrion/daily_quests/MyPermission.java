@@ -15,7 +15,8 @@ public enum MyPermission {
     ADMIN$REMOVE_QUEST("admin.removequest", PermissionDefault.OP),
     ADMIN$QUEST_ACCESS_OTHER("admin.quest.other", PermissionDefault.OP),
     QUEST_ACCESS("quest", PermissionDefault.TRUE),
-    ADMIN$QUEST_INFO("quest.info", PermissionDefault.OP);
+    ADMIN$QUEST_INFO("quest.info", PermissionDefault.OP),
+    ADMIN$RARITY_INFO("admin.rarityinfo", PermissionDefault.OP);
 
     private final Permission permission;
 

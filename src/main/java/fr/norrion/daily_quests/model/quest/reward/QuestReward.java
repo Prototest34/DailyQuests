@@ -1,7 +1,7 @@
 package fr.norrion.daily_quests.model.quest.reward;
 
 import fr.norrion.daily_quests.model.quest.Quest;
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,15 +20,15 @@ public abstract class QuestReward {
 
     public abstract void execute(Quest quest);
 
-    static public List<QuestReward> create(MemorySection memorySection, String key) {
+    static public List<QuestReward> create(ConfigurationSection configurationSection, String key) {
         List<QuestReward> res = new ArrayList<>();
-        String rewardString = memorySection.getString("reward_type");
+        String rewardString = configurationSection.getString("reward_type");
         if (rewardString != null) {
             Arrays.stream(rewardString.split(",")).distinct().forEach(s -> {
                 switch (QuestRewardType.valueOf(s.toUpperCase())) {
-                    case COMMAND -> res.add(QuestRewardCommand.createOne(memorySection, key));
-                    case ITEMS -> res.add(QuestRewardItems.createOne(memorySection, key));
-                    case MONEY -> res.add(QuestRewardMoney.createOne(memorySection, key));
+                    case COMMAND -> res.add(QuestRewardCommand.createOne(configurationSection, key));
+                    case ITEMS -> res.add(QuestRewardItems.createOne(configurationSection, key));
+                    case MONEY -> res.add(QuestRewardMoney.createOne(configurationSection, key));
                 }
             });
         }

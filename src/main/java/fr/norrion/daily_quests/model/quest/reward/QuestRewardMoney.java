@@ -4,7 +4,7 @@ import fr.norrion.daily_quests.model.quest.Quest;
 import fr.norrion.daily_quests.utils.VaultDependency;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 
 public class QuestRewardMoney extends QuestReward {
     private final double money;
@@ -20,8 +20,8 @@ public class QuestRewardMoney extends QuestReward {
         VaultDependency.giveMoney(player, money);
     }
 
-    static public QuestRewardMoney createOne(MemorySection memorySection, String key) {
-        double money = memorySection.getDouble("money");
+    static public QuestRewardMoney createOne(ConfigurationSection configurationSection, String key) {
+        double money = configurationSection.getDouble("money");
         return new QuestRewardMoney(money);
     }
 }

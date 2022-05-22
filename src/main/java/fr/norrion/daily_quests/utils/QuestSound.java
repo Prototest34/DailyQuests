@@ -9,6 +9,7 @@ public class QuestSound {
     private final SoundCategory soundCategory;
     private final int volume;
     private final int pitch;
+
     public QuestSound(ConfigurationSection sound) {
         this.sound = sound.getString("sound", "");
         String soundCategory = sound.getString("sound-category", null);

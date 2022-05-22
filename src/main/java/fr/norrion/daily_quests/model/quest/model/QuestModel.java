@@ -1,8 +1,10 @@
 package fr.norrion.daily_quests.model.quest.model;
 
+import fr.norrion.daily_quests.fileData.QuestRarityData;
+import fr.norrion.daily_quests.model.quest.QuestRarity;
 import fr.norrion.daily_quests.model.quest.reward.QuestReward;
 import fr.norrion.daily_quests.utils.QuestSound;
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -16,20 +18,22 @@ public abstract class QuestModel {
     private final List<QuestReward> rewards;
     private final List<String> rewardText;
     private final QuestSound sound;
+    private final QuestRarity rarity;
 
-    protected QuestModel(MemorySection memorySection, String key) {
-        String material = memorySection.getString("material", "STONE");
-        int amount = memorySection.getInt("material-amount", 1);
-        String name = memorySection.getString("name", key);
-        String customModel = memorySection.getString("custom-model", "");
-        this.amountNeed = memorySection.getInt("amount-need");
+    protected QuestModel(ConfigurationSection configurationSection, String key) {
+        String material = configurationSection.getString("material", "STONE");
+        int amount = configurationSection.getInt("material-amount", 1);
+        String customModel = configurationSection.getString("custom-model", "");
         this.key = key;
+        this.rarity = QuestRarityData.getRarity(configurationSection.getString("rarity", null));
+        String name = this.rarity.getColor() + configurationSection.getString("name", key).replace("%rarity_color%", this.rarity.getColor());
         this.pattern = material + ":" + amount + ":" + name + ":" + customModel;
-        this.description = (List<String>) memorySection.getList("description", new ArrayList<>());
-        this.rewards = QuestReward.create(memorySection, key);
-        this.rewardText = (List<String>) memorySection.getList("reward-text", new ArrayList<>());
-        if (memorySection.contains("sound")) {
-            this.sound = new QuestSound(memorySection.getConfigurationSection("sound"));
+        this.amountNeed = configurationSection.getInt("amount-need");
+        this.description = (List<String>) configurationSection.getList("description", new ArrayList<>());
+        this.rewards = QuestReward.create(configurationSection, key);
+        this.rewardText = (List<String>) configurationSection.getList("reward-text", new ArrayList<>());
+        if (configurationSection.contains("sound")) {
+            this.sound = new QuestSound(configurationSection.getConfigurationSection("sound"));
         } else {
             this.sound = null;
         }
@@ -64,5 +68,9 @@ public abstract class QuestModel {
     public void playSound(Player player) {
         if (this.sound != null)
             this.sound.play(player);
+    }
+
+    public QuestRarity getRarity() {
+        return rarity;
     }
 }

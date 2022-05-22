@@ -88,6 +88,7 @@ public class InventoryItems {
                     .replace("%start%", quest.getStart())
                     .replace("%complete%", quest.getComplete())
                     .replace("%remaining_time%", quest.timeRemainingString())
+                    .replace("%rarity%", quest.getQuestModel().getRarity().getName())
                     .replace("%separator%", Config.QUEST$SEPARATOR.getString());
             lore.add(ChatColor.translateAlternateColorCodes('&', newline));
         }

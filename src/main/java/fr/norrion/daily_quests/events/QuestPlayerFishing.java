@@ -3,15 +3,11 @@ package fr.norrion.daily_quests.events;
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.model.quest.model.QuestModelFish;
-import fr.norrion.daily_quests.model.quest.model.QuestModelKill;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class QuestPlayerFishing implements Listener {

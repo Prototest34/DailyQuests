@@ -1,7 +1,7 @@
 package fr.norrion.daily_quests.model.quest.model;
 
 import fr.norrion.daily_quests.utils.enumeration.ListProjectile;
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
 
 public class QuestModelHit extends QuestModel {
@@ -9,16 +9,16 @@ public class QuestModelHit extends QuestModel {
     private final EntityType entity;
     private final boolean dealOrHit;
 
-    public QuestModelHit(MemorySection memorySection, String key) {
-        super(memorySection, key);
+    public QuestModelHit(ConfigurationSection configurationSection, String key) {
+        super(configurationSection, key);
 
-        String entity = memorySection.getString("entity");
+        String entity = configurationSection.getString("entity");
         this.entity = entity != null ? EntityType.valueOf(entity.toUpperCase()) : null;
 
-        String damageCause = memorySection.getString("damage-cause");
+        String damageCause = configurationSection.getString("damage-cause");
         this.damageCause = damageCause != null ? ListProjectile.valueOf(damageCause.toUpperCase()) : null;
 
-        this.dealOrHit = memorySection.getBoolean("deal", false);
+        this.dealOrHit = configurationSection.getBoolean("deal", false);
     }
 
     public ListProjectile getDamageCause() {

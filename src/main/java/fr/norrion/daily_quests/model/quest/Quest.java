@@ -10,13 +10,10 @@ import fr.norrion.daily_quests.utils.BossBarUtils;
 import fr.norrion.daily_quests.utils.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.KeyedBossBar;
-import org.bukkit.configuration.MemorySection;
-import org.bukkit.entity.Firework;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
@@ -48,31 +45,31 @@ public class Quest {
         this.progressionEnd = questModel.getProgressionEnd();
     }
 
-    public Quest(int id, MemorySection memorySection, UUID uuid) {
+    public Quest(int id, ConfigurationSection configurationSection, UUID uuid) {
         this.id = id;
         this.uuid = uuid;
-        this.start = LocalDateTime.parse(memorySection.getString("start"), formatter);
-        this.end = LocalDateTime.parse(memorySection.getString("end"), formatter);
-        String completeTime = memorySection.getString("complete");
+        this.start = LocalDateTime.parse(configurationSection.getString("start"), formatter);
+        this.end = LocalDateTime.parse(configurationSection.getString("end"), formatter);
+        String completeTime = configurationSection.getString("complete");
         this.completeTime = completeTime == null ? null : LocalDateTime.parse(completeTime, formatter);
-        this.questModel = QuestModelData.getQuestModel(memorySection.getString("model"));
-        this.progression = memorySection.getInt("progression");
-        this.progressionEnd = memorySection.getInt("progression-end");
+        this.questModel = QuestModelData.getQuestModel(configurationSection.getString("model"));
+        this.progression = configurationSection.getInt("progression");
+        this.progressionEnd = configurationSection.getInt("progression-end");
     }
 
     public QuestModel getQuestModel() {
         return questModel;
     }
 
-    public void save(MemorySection memorySection) {
-        memorySection.set(uuid + ".quest." + id + ".start", start.format(formatter));
-        memorySection.set(uuid + ".quest." + id + ".end", end.format(formatter));
+    public void save(ConfigurationSection configurationSection) {
+        configurationSection.set(uuid + ".quest." + id + ".start", start.format(formatter));
+        configurationSection.set(uuid + ".quest." + id + ".end", end.format(formatter));
         if (this.isComplete()) {
-            memorySection.set(uuid + ".quest." + id + ".complete", completeTime.format(formatter));
+            configurationSection.set(uuid + ".quest." + id + ".complete", completeTime.format(formatter));
         }
-        memorySection.set(uuid + ".quest." + id + ".model", questModel.getKey());
-        memorySection.set(uuid + ".quest." + id + ".progression", this.progression);
-        memorySection.set(uuid + ".quest." + id + ".progression-end", this.progressionEnd);
+        configurationSection.set(uuid + ".quest." + id + ".model", questModel.getKey());
+        configurationSection.set(uuid + ".quest." + id + ".progression", this.progression);
+        configurationSection.set(uuid + ".quest." + id + ".progression-end", this.progressionEnd);
     }
 
     public String getStart() {

@@ -2,15 +2,15 @@ package fr.norrion.daily_quests.model.quest.model;
 
 import fr.norrion.daily_quests.exeption.InvalidQuest;
 import org.bukkit.Material;
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 
 public class QuestModelPlaceBlock extends QuestModel {
     private final Material material;
 
-    public QuestModelPlaceBlock(MemorySection memorySection, String key) throws InvalidQuest {
-        super(memorySection, key);
+    public QuestModelPlaceBlock(ConfigurationSection configurationSection, String key) throws InvalidQuest {
+        super(configurationSection, key);
 
-        String material = memorySection.getString("material");
+        String material = configurationSection.getString("material");
         if (material == null) {
             throw new InvalidQuest();
         }

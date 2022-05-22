@@ -12,6 +12,9 @@ public class Startup {
         if (!new File(Main.getInstance().getDataFolder(), "config.yml").exists()) {
             Main.getInstance().saveResource("config.yml", false);
         }
+        if (!new File(Main.getInstance().getDataFolder(), "quest-rarity-data.yml").exists()) {
+            Main.getInstance().saveResource("quest-rarity-data.yml", false);
+        }
         if (!new File(Main.getInstance().getDataFolder(), "quest-model-data.yml").exists()) {
             Main.getInstance().saveResource("quest-model-data.yml", false);
         }

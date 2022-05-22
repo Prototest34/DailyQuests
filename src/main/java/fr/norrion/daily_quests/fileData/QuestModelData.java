@@ -2,17 +2,20 @@ package fr.norrion.daily_quests.fileData;
 
 import fr.norrion.daily_quests.Main;
 import fr.norrion.daily_quests.exeption.InvalidQuest;
+import fr.norrion.daily_quests.model.quest.QuestRarity;
 import fr.norrion.daily_quests.model.quest.model.*;
 import fr.norrion.daily_quests.model.quest.reward.QuestReward;
 import fr.norrion.daily_quests.model.quest.reward.QuestRewardItems;
 import fr.norrion.daily_quests.utils.Logger;
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 public class QuestModelData {
     private static List<QuestModel> questModels;
@@ -28,28 +31,28 @@ public class QuestModelData {
         QuestModelData.configFile = new File(QuestModelData.plugin.getDataFolder(), QuestModelData.fileName);
         QuestModelData.config = QuestModelData.plugin.loadConfiguration(QuestModelData.configFile, QuestModelData.fileName);
         Logger.InfoMessageToServerConsole(Message.SYSTEM$FILE_LOADED_SUCCESS.getString().replace("%file%", QuestModelData.fileName));
-        MemorySection questModel = (MemorySection) QuestModelData.config.get("questModel");
-        if (questModel == null) {
+        ConfigurationSection questModelSection = QuestModelData.config.getConfigurationSection("questModel");
+        if (questModelSection == null) {
             return;
         }
-        for (String key : questModel.getKeys(false)) {
-            createModel((MemorySection) questModel.get(key), key);
+        for (String key : questModelSection.getKeys(false)) {
+            createModel(questModelSection.getConfigurationSection(key), key);
         }
     }
 
-    private static void createModel(MemorySection memorySection, String key) {
-        String type = memorySection.getString("type", null);
+    private static void createModel(ConfigurationSection configurationSection, String key) {
+        String type = configurationSection.getString("type", null);
         if (type != null && Arrays.stream(QuestModelType.values()).map(Enum::name).toList().contains(type)) {
             try {
                 QuestModel questModel = null;
                 switch (QuestModelType.valueOf(type.toUpperCase())) {
-                    case BREAK_BLOCK -> questModel = new QuestModelBreakBlock(memorySection, key);
-                    case PLACE_BLOCK -> questModel = new QuestModelPlaceBlock(memorySection, key);
-                    case KILL -> questModel = new QuestModelKill(memorySection, key);
-                    case HIT -> questModel = new QuestModelHit(memorySection, key);
-                    case BREED -> questModel = new QuestModelBreed(memorySection, key);
-                    case SHOOT_ARROW -> questModel = new QuestModelShootArrow(memorySection, key);
-                    case FISH -> questModel = new QuestModelFish(memorySection, key);
+                    case BREAK_BLOCK -> questModel = new QuestModelBreakBlock(configurationSection, key);
+                    case PLACE_BLOCK -> questModel = new QuestModelPlaceBlock(configurationSection, key);
+                    case KILL -> questModel = new QuestModelKill(configurationSection, key);
+                    case HIT -> questModel = new QuestModelHit(configurationSection, key);
+                    case BREED -> questModel = new QuestModelBreed(configurationSection, key);
+                    case SHOOT_ARROW -> questModel = new QuestModelShootArrow(configurationSection, key);
+                    case FISH -> questModel = new QuestModelFish(configurationSection, key);
                 }
                 questModels.add(questModel);
             } catch (InvalidQuest e) {
@@ -97,9 +100,17 @@ public class QuestModelData {
         if (QuestModelData.questModels.isEmpty()) {
             return null;
         }
-        Random random = new Random();
 
-        int value = random.nextInt(QuestModelData.questModels.size() - 1);
-        return QuestModelData.questModels.get(value);
+        QuestRarity questRarity = QuestRarityData.getRandomRarity();
+
+        Random random = new Random();
+        List<QuestModel> list = questModels.stream().filter(questModel -> questRarity.equals(questModel.getRarity())).toList();
+        if (list.isEmpty()) {
+            Logger.ErrorMessageToServerConsole("You must have at least one model for each rarity!");
+            throw new NullPointerException();
+        }
+        System.out.println(questRarity.getKey());
+        System.out.println(list.size()-1);
+        return list.get(random.nextInt(list.size()));
     }
 }

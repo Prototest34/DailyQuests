@@ -37,12 +37,13 @@ public class QuestAdminCommand implements CommandExecutor, TabCompleter {
                         switch (args[0]) {
                             case "reload" -> new AdminReload().execute(commandSender, args);
                             case "quest" -> new AdminQuest().execute(commandSender, args);
-                            case "addquest" -> new AdminAddQuest().execute(commandSender, args);
-                            case "questinfo" -> new AdminQuestInfo().execute(commandSender, args);
-                            case "addprogress" -> new AdminAddProgess().execute(commandSender, args);
-                            case "setprogress" -> new AdminSetProgress().execute(commandSender, args);
-                            case "removequest" -> new AdminRemoveQuest().execute(commandSender, args);
-                            case "additemreward" -> new AdminAddItemReward().execute(commandSender, args);
+                            case "addQuest" -> new AdminAddQuest().execute(commandSender, args);
+                            case "questInfo" -> new AdminQuestInfo().execute(commandSender, args);
+                            case "addProgress" -> new AdminAddProgess().execute(commandSender, args);
+                            case "setProgress" -> new AdminSetProgress().execute(commandSender, args);
+                            case "removeQuest" -> new AdminRemoveQuest().execute(commandSender, args);
+                            case "addItemReward" -> new AdminAddItemReward().execute(commandSender, args);
+                            case "rarityInfo" -> new AdminRarityInfo().execute(commandSender, args);
                         }
                     }
                 } else {
@@ -61,32 +62,33 @@ public class QuestAdminCommand implements CommandExecutor, TabCompleter {
         List<String> list = new ArrayList<>();
         if (strings.length == 1) {
             if (commandSender.hasPermission(MyPermission.ADMIN.getPermission())) {
-                list.add("additemreward");
-                list.add("addquest");
-                list.add("addprogress");
+                list.add("addItemReward");
+                list.add("addQuest");
+                list.add("addProgress");
                 list.add("quest");
-                list.add("questinfo");
+                list.add("questInfo");
                 list.add("reload");
-                list.add("removequest");
-                list.add("setprogress");
+                list.add("removeQuest");
+                list.add("setProgress");
+                list.add("rarityInfo");
                 list = list.stream().filter(s1 -> s1.startsWith(strings[0])).toList();
             }
         }
-        if ((strings[0].equals("quest") ||
-                strings[0].equals("addquest") ||
-                strings[0].equals("removequest") ||
-                strings[0].equals("questinfo") ||
-                strings[0].equals("setprogress") ||
-                strings[0].equals("addprogress"))
+        if ((strings[0].equalsIgnoreCase("quest") ||
+                strings[0].equalsIgnoreCase("addQuest") ||
+                strings[0].equalsIgnoreCase("removeQuest") ||
+                strings[0].equalsIgnoreCase("questInfo") ||
+                strings[0].equalsIgnoreCase("setProgress") ||
+                strings[0].equalsIgnoreCase("addProgress"))
                 && strings.length == 2) {
             list.add(Message.COMMAND$MODEL$PLAYER.getString());
             list.addAll(Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(playerName -> playerName.startsWith(strings[1])).toList());
         }
-        if (strings[0].equals("addquest") && strings.length == 3) {
+        if (strings[0].equalsIgnoreCase("addQuest") && strings.length == 3) {
             list.add(Message.COMMAND$MODEL$QUEST_MODEL.getString());
             list.addAll(QuestModelData.getQuestModels().stream().map(QuestModel::getKey).filter(playerName -> playerName.startsWith(strings[2])).toList());
         }
-        if (strings[0].equals("additemreward") && strings.length == 2) {
+        if (strings[0].equalsIgnoreCase("addItemReward") && strings.length == 2) {
             list.add(Message.COMMAND$MODEL$QUEST_MODEL.getString());
             list.addAll(QuestModelData.getQuestModels().stream()
                     .filter(questModel -> questModel.getRewards().stream().anyMatch(reward -> reward.getType().equals(QuestRewardType.ITEMS)))
@@ -94,10 +96,10 @@ public class QuestAdminCommand implements CommandExecutor, TabCompleter {
                     .filter(playerName -> playerName.startsWith(strings[1]))
                     .toList());
         }
-        if ((strings[0].equals("questinfo") ||
-                strings[0].equals("removequest") ||
-                strings[0].equals("setprogress") ||
-                strings[0].equals("addprogress")) && strings.length == 3) {
+        if ((strings[0].equalsIgnoreCase("questInfo") ||
+                strings[0].equalsIgnoreCase("removeQuest") ||
+                strings[0].equalsIgnoreCase("setProgress") ||
+                strings[0].equalsIgnoreCase("addProgress")) && strings.length == 3) {
             list.add(Message.COMMAND$MODEL$QUEST_ID.getString());
             //todo check uuid
             list.addAll(QuestData.getQuest(QuestData.getPlayerData(strings[1]).uuid()).stream().map(quest -> String.valueOf(quest.getId())).toList());

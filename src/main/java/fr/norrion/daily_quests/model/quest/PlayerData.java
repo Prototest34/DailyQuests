@@ -1,6 +1,6 @@
 package fr.norrion.daily_quests.model.quest;
 
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -19,11 +19,11 @@ public record PlayerData(List<Quest> listQuest, String name, UUID uuid) {
         return uuid;
     }
 
-    public void save(MemorySection memorySection) {
-        memorySection.set(uuid + ".uuid", uuid.toString());
-        memorySection.set(uuid + ".name", name);
+    public void save(ConfigurationSection configurationSection) {
+        configurationSection.set(uuid + ".uuid", uuid.toString());
+        configurationSection.set(uuid + ".name", name);
         for (Quest q : listQuest) {
-            q.save(memorySection);
+            q.save(configurationSection);
         }
     }
 }

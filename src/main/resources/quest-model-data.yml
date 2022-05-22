@@ -1,10 +1,11 @@
 questModel:
   BREAK_GRASS_BLOCK:
     type: BREAK_BLOCK
+    rarity: NORMAL
     material: "GRASS_BLOCK"
     material-amount: 40
     amount-need: 40
-    name: "&a&lBreak 40 grass block"
+    name: "Break 40 grass block"
     custom-model: 0
     description:
       - "&3Are you ready to do some quest ?"
@@ -25,19 +26,21 @@ questModel:
     block-to-break: "GRASS_BLOCK"
   PLACE_OAK_PLANKS_BLOCK:
     type: PLACE_BLOCK
+    rarity: NORMAL
     material: "OAK_PLANKS"
     material-amount: 1
     amount-need: 128
-    name: "&a&lPlace 128 oak planks"
+    name: "Place 128 oak planks"
     custom-model: 0
     reward_type: ITEMS
     block-to-place: "OAK_PLANKS"
   KILL_ZOMBIE:
     type: KILL
+    rarity: NORMAL
     material: "OAK_PLANKS"
     material-amount: 1
     amount-need: 10
-    name: "&a&lKill 10 zombies"
+    name: "Kill 10 zombies"
     custom-model: 0
     reward_type: MONEY,COMMAND
     money: 100
@@ -47,10 +50,11 @@ questModel:
     entity: "ZOMBIE"
   HIT_ARROW:
     type: HIT
+    rarity: NORMAL
     material: "ARROW"
     material-amount: 10
     amount-need: 10
-    name: "&a&lHit 10 time with arrow"
+    name: "Hit 10 time with arrow"
     custom-model: 0
     reward_type: MONEY,COMMAND
     money: 100
@@ -60,10 +64,11 @@ questModel:
     damage-cause: ARROW
   HIT_ARROW_ZOMBIE:
     type: HIT
+    rarity: NORMAL
     material: "ARROW"
     material-amount: 5
     amount-need: 5
-    name: "&a&lHit 5 zombie with arrow"
+    name: "Hit 5 zombie with arrow"
     custom-model: 0
     reward_type: MONEY,COMMAND
     money: 100
@@ -74,10 +79,11 @@ questModel:
     entity: "ZOMBIE"
   DEAL_ARROW:
     type: HIT
+    rarity: NORMAL
     material: "ARROW"
     material-amount: 1
     amount-need: 100
-    name: "&a&lDeal 100 damage with arrow"
+    name: "Deal 100 damage with arrow"
     custom-model: 0
     reward_type: MONEY,COMMAND
     money: 100
@@ -88,10 +94,11 @@ questModel:
     deal: true
   DEAL_ARROW_ZOMBIE:
     type: HIT
+    rarity: COMMON
     material: "ARROW"
     material-amount: 50
     amount-need: 50
-    name: "&a&lDeal 50 damage to zombie with arrow"
+    name: "Deal 50 damage to zombie with arrow"
     custom-model: 0
     reward_type: MONEY,COMMAND
     money: 100
@@ -106,10 +113,11 @@ questModel:
     deal: true
   BREED_SHEEP:
     type: BREED
+    rarity: UNCOMMON
     material: "SHEEP_SPAWN_EGG"
     material-amount: 10
     amount-need: 10
-    name: "&a&lBreed 10 sheep"
+    name: "Breed 10 sheep"
     custom-model: 0
     description:
       - "&3Creating power"
@@ -118,10 +126,11 @@ questModel:
     entity: "SHEEP"
   SHOOT_ARROW_HEAL:
     type: SHOOT_ARROW
+    rarity: RARE
     material: "ARROW"
     material-amount: 10
     amount-need: 10
-    name: "&a&lShoot 10 arrow of Healing"
+    name: "Shoot 10 arrow of Healing"
     custom-model: 0
     description:
       - "&c&oCupidon"
@@ -131,10 +140,11 @@ questModel:
     potion-type: "HEAL"
   SHOOT_ARROW:
     type: SHOOT_ARROW
+    rarity: EPIC
     material: "ARROW"
     material-amount: 64
     amount-need: 100
-    name: "&a&lShoot 100 arrow of Healing"
+    name: "Shoot 100 arrow of &cHealing"
     custom-model: 0
     description:
       - "&3Sniper"
@@ -143,20 +153,22 @@ questModel:
     entity: "SHEEP"
   FISH:
     type: FISH
+    rarity: LEGENDARY
     material: "COD"
     material-amount: 10
     amount-need: 10
-    name: "&a&lCatch 10 fish"
+    name: "Catch 10 fish"
     description:
       - "&3Fish"
     reward-text:
       - "&3No reward"
   FISH_SALMON:
     type: FISH
+    rarity: UNIQUE
     material: "SALMON"
     material-amount: 10
     amount-need: 10
-    name: "&a&lCatch 10 salmon"
+    name: "Catch &b10 %rarity_color%salmon"
     description:
       - "&3Fish"
     reward-text:

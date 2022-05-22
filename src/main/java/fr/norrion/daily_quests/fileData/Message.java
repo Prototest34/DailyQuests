@@ -77,6 +77,9 @@ public enum Message {
             "%prefix%Progress: %quest_progress%")),
     COMMAND$ADMIN_QUESTINFO$QUEST_NOT_FOUND("&cCannot find the quest", true),
     COMMAND$ADMIN_QUESTINFO$PLAYER_NOT_FOUND("&cPlayer never connected", true),
+    COMMAND$ADMIN_RARITYINFO$SUCCESS(Arrays.asList(
+            "%rarity_color%%rarity_name%:",
+            "   %rarity_percentage%%")),
     COMMAND$ADMIN_ADDPROGRESS$HELP("&aAdvances a player's quest", false),
     COMMAND$ADMIN_ADDPROGRESS$USE("/questadmin addprogress %model_player% %model_quest_model% %model_number% ", false),
     COMMAND$ADMIN_ADDPROGRESS$SUCCESS("&aQuest progress successfully modified"),

@@ -5,7 +5,7 @@ import fr.norrion.daily_quests.fileData.QuestData;
 import fr.norrion.daily_quests.model.quest.Quest;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.MemorySection;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
@@ -46,8 +46,8 @@ public class QuestRewardCommand extends QuestReward {
         }.runTask(Main.getInstance());
     }
 
-    static public QuestRewardCommand createOne(MemorySection memorySection, String key) {
-        List<String> commands = memorySection.getStringList("commands");
+    static public QuestRewardCommand createOne(ConfigurationSection configurationSection, String key) {
+        List<String> commands = configurationSection.getStringList("commands");
         return new QuestRewardCommand(commands);
     }
 }
