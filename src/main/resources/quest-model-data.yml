@@ -3,9 +3,10 @@ questModel:
     type: BREAK_BLOCK
     rarity: NORMAL
     material: "GRASS_BLOCK"
-    material-amount: 40
-    amount-need: 40
-    name: "Break 40 grass block"
+    material-amount: "%amount-need%"
+    amount-need-min: 40
+    amount-need-max: 60
+    name: "Break %amount-need% grass block"
     custom-model: 0
     description:
       - "&3Are you ready to do some quest ?"

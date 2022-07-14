@@ -20,9 +20,4 @@ public class QuestModelBreakBlock extends QuestModel {
     public Material getMaterial() {
         return material;
     }
-
-    @Override
-    public int getProgressionEnd() {
-        return amountNeed;
-    }
 }

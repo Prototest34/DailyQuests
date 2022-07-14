@@ -179,7 +179,7 @@ public class Quest {
             return;
         }
         String title = Config.QUEST$BOSS_BAR_MESSAGE.getString()
-                .replace("%quest%", this.questModel.getName())
+                .replace("%quest%", this.questModel.getName(this))
                 .replace("%progress-value%", String.valueOf(this.progression))
                 .replace("%progress-end%", String.valueOf(this.progressionEnd));
         KeyedBossBar bossBar = BossBarUtils.getBossBar("QuestProgress" + player.getUniqueId() + this.id, title, BarColor.valueOf(Config.QUEST$BOSS_BAR_COLOR.getString()), BarStyle.valueOf(Config.QUEST$BOSS_BAR_STYLE.getString()));
@@ -221,5 +221,9 @@ public class Quest {
             Player p = offlinePlayer.getPlayer();
             this.questModel.playSound(p);
         }
+    }
+
+    public String getPattern() {
+        return this.questModel.getMaterial().toString() + ":" + this.questModel.getMaterialAmount().replace("%amount-need%", String.valueOf(this.progressionEnd)) + ":" + this.questModel.getName(this) + ":" + this.questModel.getCustomModel();
     }
 }

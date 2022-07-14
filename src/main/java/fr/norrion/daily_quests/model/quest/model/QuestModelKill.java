@@ -20,9 +20,4 @@ public class QuestModelKill extends QuestModel {
     public EntityType getEntity() {
         return entity;
     }
-
-    @Override
-    public int getProgressionEnd() {
-        return amountNeed;
-    }
 }

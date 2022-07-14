@@ -23,16 +23,7 @@ public class QuestModelShootArrow extends QuestModel {
         return entity;
     }
 
-    public int getAmount() {
-        return amountNeed;
-    }
-
     public PotionEffectType getPotionEffectType() {
         return potionEffectType;
-    }
-
-    @Override
-    public int getProgressionEnd() {
-        return amountNeed;
     }
 }

@@ -20,9 +20,4 @@ public class QuestModelPlaceBlock extends QuestModel {
     public Material getMaterial() {
         return material;
     }
-
-    @Override
-    public int getProgressionEnd() {
-        return amountNeed;
-    }
 }

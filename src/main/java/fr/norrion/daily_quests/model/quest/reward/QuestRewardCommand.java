@@ -38,7 +38,7 @@ public class QuestRewardCommand extends QuestReward {
                     } else {
                         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command
                                 .replace("%player%", playerName)
-                                .replace("%quest_name%", quest.getQuestModel().getName())
+                                .replace("%quest_name%", quest.getQuestModel().getName(quest))
                         );
                     }
                 }

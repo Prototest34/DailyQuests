@@ -33,7 +33,7 @@ public class InventoryItems {
         return item;
     }
 
-    public static ItemStack get(String s) {
+    static ItemStack get(String s) {
         String[] data = s.split(":");
         Material m = Material.getMaterial(data[0].toUpperCase());
         ItemStack i;
@@ -62,7 +62,7 @@ public class InventoryItems {
     }
 
     public static ItemStack getQuest(Quest quest) {
-        ItemStack item = get(quest.getQuestModel().getPattern());
+        ItemStack item = get(quest.getPattern());
         ItemMeta im = item.getItemMeta();
         List<String> list = Config.QUEST$LORE.getList();
         List<String> lore = new ArrayList<>();

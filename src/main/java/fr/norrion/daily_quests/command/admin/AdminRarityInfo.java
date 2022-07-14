@@ -26,7 +26,7 @@ public class AdminRarityInfo implements QuestCommand {
             for (QuestRarity questRarity: QuestRarityData.getQuestRarities()) {
                 List<String> list = Message.COMMAND$ADMIN_RARITYINFO$SUCCESS.getList();
                 for (String line : list) {
-                    line = line.replace("%rarity_color%", questRarity.getColor())
+                    line = Config.PREFIX_PLUGIN.getString() + " " + line.replace("%rarity_color%", questRarity.getColor())
                             .replace("%rarity_name%", questRarity.getKey())
                             .replace("%rarity_percentage%", BigDecimal.valueOf(questRarity.getRealPercentage()).setScale(2, RoundingMode.HALF_UP).toPlainString());
                     commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', line));

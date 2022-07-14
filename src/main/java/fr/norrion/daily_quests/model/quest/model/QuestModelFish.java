@@ -16,9 +16,4 @@ public class QuestModelFish extends QuestModel {
     public Material getItemFish() {
         return itemFish;
     }
-
-    @Override
-    public int getProgressionEnd() {
-        return amountNeed;
-    }
 }

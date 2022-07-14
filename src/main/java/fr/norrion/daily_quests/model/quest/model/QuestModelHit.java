@@ -32,9 +32,4 @@ public class QuestModelHit extends QuestModel {
     public boolean isDealOrHit() {
         return dealOrHit;
     }
-
-    @Override
-    public int getProgressionEnd() {
-        return amountNeed;
-    }
 }
